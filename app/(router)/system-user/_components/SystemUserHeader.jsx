@@ -4,11 +4,10 @@ import {useRouter} from "next/navigation";
 
 function SystemUserHeader({memberId}) {
 
-  console.log("Component:SystemUserHeader "+ memberId)
   const router=useRouter()
 
   useEffect(()=>{
-    router.push('/member/dashboard');
+    if(memberId!=null) router.push('/member/dashboard');
   },[memberId])
 
   return (
