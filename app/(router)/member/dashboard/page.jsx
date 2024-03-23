@@ -1,12 +1,23 @@
-import { UserButton } from '@clerk/nextjs'
-import React from 'react'
+import {currentUser} from '@clerk/nextjs';
+import GlobalApi from "@/app/_utils/GlobalApi";
+import MemberHeader from "@/app/(router)/member/_components/MemberHeader";
 
-function Dashboard() {
-  return (
-    <div>
-     Dashboard
-    </div>
-  )
+async function page() {
+
+    const userData = await currentUser();
+    let isMember;
+
+    await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
+        isMember=resp?.systemUser?.member != null;
+    }).catch(error => {
+        console.log(error)
+    })
+    return (
+        <div>
+            <MemberHeader isMember={isMember} fileName={'dashboard'}/>
+            Dashboard
+        </div>
+    )
 }
 
-export default Dashboard
+export default page

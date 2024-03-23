@@ -5,23 +5,17 @@ import SystemUserHeader from "@/app/(router)/system-user/_components/SystemUserH
 async function page() {
 
     const userData = await currentUser();
-
-    let memberId;
+    let isMember;
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
-        //Can be simplified
-        if (resp?.systemUser?.member != null) {
-            memberId = resp?.systemUser?.member?.id;
-        } else {
-            memberId = null;
-        }
+        isMember=resp?.systemUser?.member != null;
     }).catch(error => {
         console.log(error)
     })
-
     return (
-        <div>System User
-            <SystemUserHeader memberId={memberId}/>
+        <div>
+            <SystemUserHeader isMember={isMember}/>
+            System User
         </div>
     )
 }

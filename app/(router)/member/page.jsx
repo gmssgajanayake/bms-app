@@ -1,15 +1,23 @@
-"use client"
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react'
+import {currentUser} from '@clerk/nextjs';
+import GlobalApi from "@/app/_utils/GlobalApi";
+import MemberHeader from "@/app/(router)/member/_components/MemberHeader";
 
-function page() {
-     const router=useRouter()
+async function page() {
 
-     useEffect(()=>{
-          router.push('/member/dashboard');
-     },[])
+    const userData = await currentUser();
+    let isMember;
 
-  return null;
+    await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
+        isMember=resp?.systemUser?.member != null;
+    }).catch(error => {
+        console.log(error)
+    })
+    return (
+        <div>
+            <MemberHeader isMember={isMember} fileName={'profile'}/>
+            Profile
+        </div>
+    )
 }
 
 export default page

@@ -2,16 +2,16 @@
 import React, {useEffect} from 'react'
 import {useRouter} from "next/navigation";
 
-function SystemUserHeader({memberId}) {
+function SystemUserHeader({isMember}) {
 
   const router=useRouter()
 
   useEffect(()=>{
-    if(memberId!=null) router.push('/member/dashboard');
-  },[memberId])
+    if(isMember) router.push('/member/dashboard');
+  },[isMember])
 
   return (
-    <div>SystemUserHeader {memberId}</div>
+    <div>SystemUserHeader {isMember}</div>
   )
 }
 
