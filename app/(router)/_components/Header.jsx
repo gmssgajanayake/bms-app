@@ -5,20 +5,19 @@ import Link from 'next/link'
 import React, { useEffect } from 'react'
 
 function Header() {
+
   const {user,isLoaded}=useUser();
 
   return (
     <div className='flex'>
       <h1>Header</h1> 
       {
-        isLoaded&&user ? 
+        isLoaded && user ?
         <UserButton afterSignOutUrl='/home'/> :
         <Link href={'/sign-up'}>
-         <Button>Get Strated</Button>
+         <Button>Get Started</Button>
         </Link>
       }
-      
-       
     </div>
   )
 }

@@ -1,30 +1,51 @@
 "use client"
-import Image from "next/image";
-import { Button } from "@/components/ui/button"
-import HomePage from "@/components/HomePage";
-import { UserButton, useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-
+import {useUser} from "@clerk/nextjs";
+import {useRouter} from "next/navigation";
+import {useEffect} from "react";
+import GlobalApi from "./_utils/GlobalApi";
 
 
 export default function Home() {
-  const router=useRouter();
-  const {user,isLoaded}=useUser();
+  const router = useRouter();
+  const {user, isLoaded} = useUser();
 
-  useEffect(()=>{
-    if(user){
-      // console.log(user);
-      router.push('/member/dashboard')
-    }else{
-      isLoaded&&router.push('/home')
+  const loggedUserCheck = () => {
+    GlobalApi.findSystemUserByClerkId(user?.id).then(resp => {
+      if(resp?.systemUser == null){
+        systemUserDataStore();
+        router.push('/system-user')
+      }else{
+        router.push(resp?.systemUser.member==null?'/system-user':'/member/dashboard')
+      }
+    }).catch(error => {
+      console.log("Some thing went wrong");
+    })
+  }
+
+  const systemUserDataStore = () => {
+    GlobalApi.createNewSystemUser(
+        user?.primaryEmailAddress?.emailAddress,
+        user?.firstName,
+        user?.lastName,
+        null,
+        null,
+        user?.id
+    ).then(resp => {
+      return resp
+    }).catch(error => {
+      console.log("Some thing went wrong");
+    })
+  }
+
+  useEffect(() => {
+    if (user) {
+      loggedUserCheck()
+    } else {
+      isLoaded && router.push('/home')
     }
-  },[user])
+  }, [user])
 
   return (
-    <div>
-        <HomePage/>
-        <UserButton />
-    </div>
+      <div></div>
   );
 }
