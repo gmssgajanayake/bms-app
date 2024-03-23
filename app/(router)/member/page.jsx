@@ -6,16 +6,18 @@ async function page() {
 
     const userData = await currentUser();
     let isMember;
+    let isAdmin;
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
         isMember=resp?.systemUser?.member != null;
+        isAdmin=resp?.systemUser?.member?.adminStatus;
     }).catch(error => {
         console.log(error)
     })
     return (
         <div>
-            <MemberHeader isMember={isMember} fileName={'profile'}/>
-            Profile
+            <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'dashboard'}/>
+            Member
         </div>
     )
 }

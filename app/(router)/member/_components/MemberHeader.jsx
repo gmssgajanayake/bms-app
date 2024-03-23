@@ -2,13 +2,15 @@
 import React, {useEffect} from 'react'
 import {useRouter} from "next/navigation";
 
-function MemberHeader({isMember,fileName}) {
+function MemberHeader({isMember, isAdmin, fileName}) {
 
-    const router=useRouter()
+    const router = useRouter()
+    useEffect(() => {
+        router.push(!isMember?'/system-user':fileName === 'admin'?
+            (!isAdmin?'/member/dashboard':'/member/admin'):
+            '/member/'+fileName);
 
-    useEffect(()=>{
-        router.push(!isMember?'/system-user':'/member/'+fileName);
-    },[isMember])
+    }, [isMember])
 
     return (
         <div>MemberHeader {isMember}</div>

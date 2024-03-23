@@ -2,11 +2,12 @@
 import { Button } from '@/components/ui/button'
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function Header() {
 
   const {user,isLoaded}=useUser();
+
 
   return (
     <div className='flex'>
