@@ -1,4 +1,9 @@
 import { SignUp } from "@clerk/nextjs";
+
+export const metadata = {
+    title: "BMS | Sign Up - Boarding Management System",
+    description: "Boarding Management System",
+};
  
 export default function Page() {
   return (

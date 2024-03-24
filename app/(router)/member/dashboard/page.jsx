@@ -2,6 +2,10 @@ import {currentUser} from '@clerk/nextjs';
 import GlobalApi from "@/app/_utils/GlobalApi";
 import MemberHeader from "@/app/(router)/member/_components/MemberHeader";
 
+export const metadata = {
+    title: "BMS | Dashboard - Boarding Management System",
+    description: "Boarding Management System",
+};
 async function page() {
 
     const userData = await currentUser();
