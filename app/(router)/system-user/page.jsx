@@ -1,6 +1,7 @@
 import {currentUser} from '@clerk/nextjs';
 import GlobalApi from "@/app/_utils/GlobalApi";
 import SystemUserHeader from "@/app/(router)/system-user/_components/SystemUserHeader";
+import MemberRegisterForm from "@/app/(router)/system-user/_components/MemberRegisterForm";
 
 
 export const metadata = {
@@ -21,6 +22,8 @@ async function page() {
         <div>
             <SystemUserHeader isMember={isMember}/>
             System User
+            <MemberRegisterForm/>
+
         </div>
     )
 }
