@@ -17,7 +17,11 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 
 
+
 const formSchema = z.object({
+    id: z.string().min(2, {
+        message: "ID name must be at least 2 characters.",
+    }),
     firstName: z.string().min(2, {
         message: "First name must be at least 2 characters.",
     }),
@@ -32,22 +36,25 @@ const formSchema = z.object({
     }),
     contact: z.string().min(2, {
         message: "First name must be at least 2 characters.",
-    }),
+    })
 
 })
 
-export function MemberRegisterForm() {
+export function MemberRegisterForm({firstName,lastName,email,address,contact,id}) {
 
     const form = (useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            firstName: "Sakuja",
-            lastName: "Kallio",
-            email: "sakuja.kallio@me.com",
-            address: "Testi 1, 12345 Testi",
-            contact: "123456789",
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            address: address,
+            contact: contact,
         }
     }))
+
+
 
 
     const onSubmit = (data) => {
@@ -61,12 +68,28 @@ export function MemberRegisterForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
                     control={form.control}
+                    name="id"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>System User ID</FormLabel>
+                            <FormControl>
+                                <Input  disabled placeholder="User ID" {...field} />
+                            </FormControl>
+                            {/*<FormDescription>*/}
+                            {/*    This is your public display name.*/}
+                            {/*</FormDescription>*/}
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
                     name="firstName"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>First Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="First Name" {...field} />
+                                <Input disabled placeholder="First Name" {...field} />
                             </FormControl>
                             {/*<FormDescription>*/}
                             {/*    This is your public display name.*/}
@@ -83,7 +106,7 @@ export function MemberRegisterForm() {
                         <FormItem>
                             <FormLabel>Last Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Last Name" {...field} />
+                                <Input disabled placeholder="Last Name" {...field} />
                             </FormControl>
                             {/*<FormDescription>*/}
                             {/*    This is your public display name.*/}
@@ -100,7 +123,7 @@ export function MemberRegisterForm() {
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder="Email" {...field} />
+                                <Input disabled placeholder="Email" {...field} />
                             </FormControl>
                             {/*<FormDescription>*/}
                             {/*    This is your public display name.*/}
@@ -119,9 +142,9 @@ export function MemberRegisterForm() {
                             <FormControl>
                                 <Input placeholder="Address" {...field} />
                             </FormControl>
-                            {/*<FormDescription>*/}
-                            {/*    This is your public display name.*/}
-                            {/*</FormDescription>*/}
+                            <FormDescription>
+                               You can change your address here, when you creat or find a boarding
+                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -136,9 +159,9 @@ export function MemberRegisterForm() {
                             <FormControl>
                                 <Input placeholder="Contact" {...field} />
                             </FormControl>
-                            {/*<FormDescription>*/}
-                            {/*    This is your public display name.*/}
-                            {/*</FormDescription>*/}
+                            <FormDescription>
+                                You can change your contact details here, when you create or find a boarding
+                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
