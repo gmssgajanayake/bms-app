@@ -40,7 +40,7 @@ const formSchema = z.object({
 
 })
 
-export function MemberRegisterForm({firstName,lastName,email,address,contact,id}) {
+export function FindBoardingForm({firstName,lastName,email,address,contact,id}) {
 
     const form = (useForm({
         resolver: zodResolver(formSchema),
@@ -177,4 +177,4 @@ export function MemberRegisterForm({firstName,lastName,email,address,contact,id}
 
 
 
-export default MemberRegisterForm
+export default FindBoardingForm

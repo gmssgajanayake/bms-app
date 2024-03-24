@@ -1,12 +1,12 @@
 import {currentUser} from '@clerk/nextjs';
 import GlobalApi from "@/app/_utils/GlobalApi";
-import SystemUserHeader from "@/app/(router)/system-user/_components/SystemUserHeader";
-import MemberRegisterForm from "@/app/(router)/system-user/_components/MemberRegisterForm";
+import FindBoardingHeader from "@/app/(router)/find-boarding/_components/FindBoardingHeader";
+import CreateBoardingHeader from "@/app/(router)/create-boarding/_components/CreateBoardingHeader";
 
 
 
 export const metadata = {
-    title: "BMS | System User - Boarding Management System",
+    title: "BMS | Find Boarding Manager - Boarding Management System",
     description: "Boarding Management System",
 };
 async function page() {
@@ -39,9 +39,9 @@ async function page() {
 
     return (
         <div>
-            <SystemUserHeader isMember={isMember}/>
+            <CreateBoardingHeader isMember={isMember}/>
             System User
-            <MemberRegisterForm response={response} firstName={firstName} lastName={lastName} email={email} address={address} contact={contactNumber} id={id} />
+            {/*<MemberRegisterForm response={response} firstName={firstName} lastName={lastName} email={email} address={address} contact={contactNumber} id={id} />*/}
         </div>
     )
 }

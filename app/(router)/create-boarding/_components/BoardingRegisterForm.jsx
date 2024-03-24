@@ -15,32 +15,7 @@ import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-
-
-
-const formSchema = z.object({
-    id: z.string().min(2, {
-        message: "ID name must be at least 2 characters.",
-    }),
-    firstName: z.string().min(2, {
-        message: "First Name must be at least 2 characters.",
-    }),
-    lastName: z.string().min(2, {
-        message: "Last Name must be at least 2 characters.",
-    }),
-    email: z.string().min(2, {
-        message: "Email must be at least 2 characters.",
-    }),
-    address: z.string().min(2, {
-        message: "Address must be at least 2 characters.",
-    }),
-    contact: z.string().min(10, {
-        message: "Please enter a valid contact number",
-    })
-
-})
-
-export function MemberRegisterForm({firstName,lastName,email,address,contact,id}) {
+export function BoardingRegisterForm({firstName,lastName,email,address,contact,id}) {
 
     const form = (useForm({
         resolver: zodResolver(formSchema),
@@ -177,4 +152,4 @@ export function MemberRegisterForm({firstName,lastName,email,address,contact,id}
 
 
 
-export default MemberRegisterForm
+export default BoardingRegisterForm
