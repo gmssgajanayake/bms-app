@@ -4,6 +4,7 @@ import SystemUserHeader from "@/app/(router)/system-user/_components/SystemUserH
 import MemberRegisterForm from "@/app/(router)/system-user/_components/MemberRegisterForm";
 
 
+
 export const metadata = {
     title: "BMS | System User - Boarding Management System",
     description: "Boarding Management System",
@@ -11,6 +12,7 @@ export const metadata = {
 async function page() {
 
     const userData = await currentUser();
+    let response;
     let isMember;
     let id
     let firstName;
@@ -19,16 +21,17 @@ async function page() {
     let address;
     let contactNumber;
 
-
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
-        isMember=resp?.systemUser?.member != null;
-        id=resp?.systemUser?.id
-        firstName=resp?.systemUser?.firstName
-        lastName=resp?.systemUser?.lastName
-        email=resp?.systemUser?.email
-        address=resp?.systemUser?.address
-        contactNumber=(resp?.systemUser?.contactNumber).toString()
-        console.log(id)
+        if(resp!==null){
+            response=resp;
+            isMember=resp?.systemUser?.member != null;
+            id=resp?.systemUser?.id;
+            firstName=resp?.systemUser?.firstName;
+            lastName=resp?.systemUser?.lastName;
+            email=resp?.systemUser?.email;
+            address=resp?.systemUser?.address==null?"":resp?.systemUser?.address;
+            contactNumber=resp?.systemUser?.contactNumber==null?"":(resp?.systemUser?.contactNumber).toString();
+        }
     }).catch(error => {
         console.log(error)
     })
@@ -38,7 +41,7 @@ async function page() {
         <div>
             <SystemUserHeader isMember={isMember}/>
             System User
-            <MemberRegisterForm firstName={firstName} lastName={lastName} email={email} address={address} contact={contactNumber} id={id} />
+            <MemberRegisterForm response={response} firstName={firstName} lastName={lastName} email={email} address={address} contact={contactNumber} id={id} />
 
         </div>
     )
