@@ -16,6 +16,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { useForm } from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
+import GlobalApi from "@/app/_utils/GlobalApi";
+import {useRouter} from "next/navigation";
 
 
 const formSchema = z.object({
@@ -36,6 +38,8 @@ const formSchema = z.object({
 
 export function BoardingRegisterForm({clerkId}) {
 
+    const router = useRouter();
+
     const form = (useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -46,9 +50,18 @@ export function BoardingRegisterForm({clerkId}) {
         }
     }))
 
+    async function createBoarding(data){
+        await GlobalApi.createNewBoarding(data.boardingName,data.address,data.description,clerkId).then(resp => {
+            console.log(resp)
+            router.push('/member/dashboard')
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+
 
     const onSubmit = (data) => {
-        console.log(data)
+        createBoarding(data);
     }
 
 

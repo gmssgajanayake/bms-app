@@ -112,12 +112,37 @@ const updateSystemUserByClerkId = async (clerkId,address,contactNumber) => {
     return rest;
 }
 
+const createNewBoarding = async (boardingName, boardingAddress, description, clerkId) => {
+    const query = `
+        mutation MyMutation {
+          createMember(
+            data: {adminStatus: true, boarding: {create: {name: "${boardingName}", address: "${boardingAddress}", discription: "${description}"}}, 
+            systemUser: {connect: {clerkId: "${clerkId}"}}}
+          ) {
+            id
+          }
+          publishManyBoardings(to: PUBLISHED) {
+            count
+          }
+          publishManySystemUsers(to: PUBLISHED) {
+            count
+          }
+          publishManyMembers(to: PUBLISHED) {
+            count
+          }
+        }
+    `;
+    const rest = await request(MASTER_URL, query);
+    console.log(rest);
+    return rest;
+}
 
 export default {
     getAllSystemUsers,
     createNewSystemUser,
     findSystemUserByClerkId,
     deleteSystemUserByClerkId,
-    updateSystemUserByClerkId
+    updateSystemUserByClerkId,
+    createNewBoarding,
 }
 
