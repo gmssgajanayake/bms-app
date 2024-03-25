@@ -60,7 +60,9 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
     }
 
     async function updateSystemUser(clerkId, address, contact) {
-        console.log(clerkId)
+        if(contact===""){
+            contact=null
+        }
         await GlobalApi.updateSystemUserByClerkId(clerkId, address, contact).then(resp => {
             router.push(resp.updateSystemUser.id != null ? redirectPath : "/system-user")
         }).catch(error => {
