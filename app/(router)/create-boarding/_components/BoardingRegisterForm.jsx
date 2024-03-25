@@ -10,22 +10,39 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
 
 import { useForm } from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-export function BoardingRegisterForm({firstName,lastName,email,address,contact,id}) {
+
+
+const formSchema = z.object({
+    boardingName: z.string().min(2, {
+        message: "Boarding name is required",
+    }),
+    adminId: z.string().min(2, {
+        message: "Admin id must be at least 2 characters.",
+    }),
+    address: z.string().min(2, {
+        message: "Address is required.",
+    }),
+    description: z.string().min(0, {
+        message: "Description",
+    }).optional()
+})
+
+
+export function BoardingRegisterForm({clerkId}) {
 
     const form = (useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            id: id,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            address: address,
-            contact: contact,
+            boardingName: "",
+            adminId: clerkId,
+            address: "",
+            description: "",
         }
     }))
 
@@ -41,66 +58,29 @@ export function BoardingRegisterForm({firstName,lastName,email,address,contact,i
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
                     control={form.control}
-                    name="id"
+                    name="boardingName"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>System User ID</FormLabel>
+                            <FormLabel>Boarding Name</FormLabel>
                             <FormControl>
-                                <Input  disabled placeholder="User ID" {...field} />
+                                <Input placeholder="Give a name for your boarding" {...field} />
                             </FormControl>
-                            {/*<FormDescription>*/}
-                            {/*    This is your public display name.*/}
-                            {/*</FormDescription>*/}
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
-                    name="firstName"
+                    name="adminId"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>First Name</FormLabel>
+                            <FormLabel>Admin ID</FormLabel>
                             <FormControl>
-                                <Input disabled placeholder="First Name" {...field} />
+                                <Input disabled placeholder="Admin ID" {...field} />
                             </FormControl>
-                            {/*<FormDescription>*/}
-                            {/*    This is your public display name.*/}
-                            {/*</FormDescription>*/}
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Last Name</FormLabel>
-                            <FormControl>
-                                <Input disabled placeholder="Last Name" {...field} />
-                            </FormControl>
-                            {/*<FormDescription>*/}
-                            {/*    This is your public display name.*/}
-                            {/*</FormDescription>*/}
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input type={'email'} disabled placeholder="Email" {...field} />
-                            </FormControl>
-                            {/*<FormDescription>*/}
-                            {/*    This is your public display name.*/}
-                            {/*</FormDescription>*/}
+                            <FormDescription>
+                                You will be the admin of this boarding currently however, you can change it later with your boarding members
+                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -113,11 +93,8 @@ export function BoardingRegisterForm({firstName,lastName,email,address,contact,i
                         <FormItem>
                             <FormLabel>Address</FormLabel>
                             <FormControl>
-                                <Input placeholder="Address" {...field} />
+                                <Input placeholder="Give your boarding an address" {...field} />
                             </FormControl>
-                            <FormDescription>
-                               You can change your address here, when you creat or find a boarding
-                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -125,26 +102,20 @@ export function BoardingRegisterForm({firstName,lastName,email,address,contact,i
 
                 <FormField
                     control={form.control}
-                    name="contact"
+                    name="description"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Contact</FormLabel>
+                            <FormLabel>Description</FormLabel>
                             <FormControl>
-                                <Input type={'number'} placeholder="Contact" {...field} />
+                                <Textarea  {...field} placeholder="Type your message for boarding members." id="message" />
                             </FormControl>
-                            <FormDescription>
-                                You can change your contact details here, when you create or find a boarding
-                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <div className={'flex gap-4'}>
-                    <Button type="submit">Create a Boarding</Button>
-                    <Button type="submit">Find a Boarding</Button>
-                    <Button type="submit">Delete Account</Button>
+                    <Button type="submit">Create a new boarding</Button>
                 </div>
-
             </form>
         </Form>
     )
