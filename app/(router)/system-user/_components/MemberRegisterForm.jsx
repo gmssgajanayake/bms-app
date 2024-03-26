@@ -1,9 +1,8 @@
 'use client'
-//import {Button} from "@/components/ui/button"
+import {Button} from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -11,14 +10,6 @@ import {
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import {useClerk} from "@clerk/clerk-react";
-import Link from "next/link"
-
-import { BellRing, Check } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-
-// import { Switch } from "@/components/ui/switch"
 
 const notifications = [
     {
@@ -34,10 +25,6 @@ const notifications = [
         description: "2 hours ago",
     },
 ]
-
-
-
-
 
 
 import {useForm} from "react-hook-form"
@@ -89,8 +76,8 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
     }
 
     async function updateSystemUser(clerkId, address, contact) {
-        if(contact===""){
-            contact=null
+        if (contact === "") {
+            contact = null
         }
         await GlobalApi.updateSystemUserByClerkId(clerkId, address, contact).then(resp => {
             router.push(resp.updateSystemUser.id != null ? redirectPath : "/system-user")
@@ -121,37 +108,26 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
 
     return (
         <main
-            className=" flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-            <div className="mx-auto grid w-full max-w-6xl gap-2">
+            className="z-10  flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
+            <div className="z-10 mx-auto grid w-full max-w-6xl gap-2">
                 <h1 className="text-3xl font-semibold">Settings</h1>
             </div>
             <div
                 className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-                {/*<nav className="grid gap-4 text-sm text-muted-foreground">*/}
-                {/*    <Link href="#" className="font-semibold text-primary">*/}
-                {/*        General*/}
-                {/*    </Link>*/}
-                {/*    <Link href="#">Security</Link>*/}
-                {/*    <Link href="#">Integrations</Link>*/}
-                {/*    <Link href="#">Support</Link>*/}
-                {/*    <Link href="#">Organizations</Link>*/}
-                {/*    <Link href="#">Advanced</Link>*/}
-                {/*</nav>*/}
-
-
             </div>
 
-            <div >
+
+            <div className={"lg:pl-24"}>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
                             control={form.control}
                             name="clerkId"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>System User ID</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>System User ID</FormLabel>
                                     <FormControl>
-                                        <Input disabled placeholder="User ID" {...field} />
+                                        <Input className={'border-none '} disabled placeholder="User ID" {...field} />
                                     </FormControl>
                                     {/*<FormDescription>*/}
                                     {/*    This is your public display name.*/}
@@ -164,10 +140,11 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
                             control={form.control}
                             name="firstName"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>First Name</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center "}>First Name</FormLabel>
                                     <FormControl>
-                                        <Input disabled placeholder="First Name" {...field} />
+                                        <Input className={'border-none '} disabled
+                                               placeholder="First Name" {...field} />
                                     </FormControl>
                                     {/*<FormDescription>*/}
                                     {/*    This is your public display name.*/}
@@ -181,10 +158,10 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
                             control={form.control}
                             name="lastName"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Last Name</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Last Name</FormLabel>
                                     <FormControl>
-                                        <Input disabled placeholder="Last Name" {...field} />
+                                        <Input className={'border-none '} disabled placeholder="Last Name" {...field} />
                                     </FormControl>
                                     {/*<FormDescription>*/}
                                     {/*    This is your public display name.*/}
@@ -198,10 +175,11 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
                             control={form.control}
                             name="email"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Email</FormLabel>
                                     <FormControl>
-                                        <Input type={'email'} disabled placeholder="Email" {...field} />
+                                        <Input className={'border-none '} type={'email'} disabled
+                                               placeholder="Email" {...field} />
                                     </FormControl>
                                     {/*<FormDescription>*/}
                                     {/*    This is your public display name.*/}
@@ -215,15 +193,11 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
                             control={form.control}
                             name="address"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Address</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Address</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Address" {...field} />
                                     </FormControl>
-                                    <FormDescription>
-                                        You can change your address here, when you creat or find a boarding
-                                    </FormDescription>
-                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
@@ -232,16 +206,13 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
                             control={form.control}
                             name="contact"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Contact</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Contact</FormLabel>
                                     <FormControl>
                                         <Input type={'number'} placeholder="Contact" {...field} />
                                     </FormControl>
-                                    <FormDescription>
-                                        You can change your contact details here, when you create or find a boarding
-                                    </FormDescription>
-                                    <FormMessage/>
                                 </FormItem>
+
                             )}
                         />
                         <div className={'flex gap-4'}>
