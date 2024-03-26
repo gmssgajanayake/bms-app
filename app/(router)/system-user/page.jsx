@@ -38,9 +38,9 @@ async function page() {
 
 
     return (
-        <div>
+        <div className="flex min-h-screen w-full flex-col">
             <SystemUserHeader isMember={isMember}/>
-            System User
+
             <MemberRegisterForm response={response} firstName={firstName} lastName={lastName} email={email}
                                 address={address} contact={contactNumber} clerkId={clerkId}/>
         </div>
