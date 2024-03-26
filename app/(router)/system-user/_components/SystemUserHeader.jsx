@@ -25,15 +25,11 @@ function SystemUserHeader({isMember}) {
   },[isMember])
 
   return (
-
-
         <header  className=" z-50 sticky top-0 flex h-16 items-center gap-4 bg-white px-4 md:px-6">
           <nav
                className="0 hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-            <Link onClick={() => {
-              router.push('/home')
-            }}
-                  href="#"
+            <Link
+                  href="/home"
                   className="w-[80px] h-auto flex items-center justify-center gap-2 text-lg font-semibold md:text-base"
             >
 

@@ -9,7 +9,7 @@ function Hero() {
 
     return (
             <section className={"pt-10 pb-10"} id={"about"}>
-                <div className="container pt-14">
+                <div className="container">
                     <div className="md:flex items-center justify-between sm:flex-col md:flex-row">
                         {/* ------------- Hero left content start -------------- */}
                         <div className="w-full md:basis-1/2">
