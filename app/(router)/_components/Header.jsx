@@ -3,6 +3,31 @@ import { Button } from '@/components/ui/button'
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import React from 'react'
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import Image from "next/image"
+
+import {
+    Activity,
+    ArrowUpRight,
+    CircleUser,
+    CreditCard,
+    DollarSign,
+    Menu,
+    Package2,
+    Search,
+    Users,
+} from "lucide-react"
+
+import { Input } from "@/components/ui/input"
 
 function Header() {
 
@@ -10,16 +35,17 @@ function Header() {
 
 
   return (
-    <div className='flex'>
-      <h1>Header</h1> 
-      {
-        isLoaded && user ?
-        <UserButton afterSignOutUrl='/home'/> :
-        <Link href={'/sign-up'}>
-         <Button>Get Started</Button>
-        </Link>
-      }
-    </div>
+      <div className="flex min-h-screen flex-col fixed">
+
+                  {
+                      isLoaded && user ?
+                          <UserButton afterSignOutUrl='/home'/> :
+                          <Link href={'/sign-up'}>
+                              <Button>Get Started</Button>
+                          </Link>
+                  }
+
+      </div>
   )
 }
 

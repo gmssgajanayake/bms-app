@@ -1,4 +1,7 @@
 import React from 'react'
+import HomePageHeader from "@/app/(router)/home/_components/HomePageHeader";
+import HomePageContent from "@/app/(router)/home/_components/HomePageContent";
+import HeroSection from "@/app/(router)/home/_components/HeroSection";
 
 export const metadata = {
   title: "BMS | Home - Boarding Management System",
@@ -6,9 +9,11 @@ export const metadata = {
 };
 function Home() {
   return (
-    <div>Home
+    <div >
+      <HomePageHeader/>
+        {/*<HeroSection/>*/}
+      <HomePageContent/>
     </div>
-    
   )
 }
 

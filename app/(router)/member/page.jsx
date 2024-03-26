@@ -15,7 +15,7 @@ async function page() {
         console.log(error)
     })
     return (
-        <div>
+        <div >
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'dashboard'}/>
             Member
         </div>
