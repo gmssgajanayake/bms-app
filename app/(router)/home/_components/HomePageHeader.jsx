@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
-import React from 'react'
+import React, {useEffect, useRef} from 'react'
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
     DropdownMenu,
@@ -36,14 +36,43 @@ function HomePageHeader() {
     const {user,isLoaded}=useUser();
     const router = useRouter();
 
+    const headerRef = useRef(null);
+    const menuRef = useRef(null);
+
+    const toggleMenu = () => menuRef.current.classList.toggle('show_menu');
+    const stickyHeaderFunc = () => {
+        window.addEventListener('scroll', () => {
+            document.body.scrollTop > 80 || document.documentElement.scrollTop > 80 ?
+                headerRef.current.classList.add('sticky_header') :
+                headerRef.current.classList.remove('sticky_header');
+        });
+    }
+
+    useEffect(()=>{
+        stickyHeaderFunc();
+        return window.removeEventListener('scroll',stickyHeaderFunc);
+    },[]);
+
+    const handleClick = e => {
+        e.preventDefault();
+
+        const targetAttr = e.target.getAttribute('href');
+        const location = document.querySelector(targetAttr).offsetTop;
+
+        window.scrollTo({
+            top:location-80,
+            left:0
+        });
+    }
+
 
     return (
         <div className="z-50 flex min-h-screen w-full flex-col fixed">
-            <header className="z-50 sticky top-0 flex h-16 items-center gap-4 bg-background px-4 md:px-6">
-                <nav
+            <header ref={headerRef} className="z-50 sticky top-0 flex h-16 items-center gap-4 bg-background px-4 md:px-6">
+                <nav ref={menuRef} onClick={toggleMenu}
                     className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-                    <Link
-                        href="/home"
+                    <Link onClick={()=>{router.push('/home')}}
+                        href="#"
                         className="w-[80px] h-auto flex items-center justify-center gap-2 text-lg font-semibold md:text-base"
                     >
                         <Image onClick={()=>router.push('/home')} className={'cursor-pointer'} src={'/BMS-logo.png'}
@@ -51,7 +80,7 @@ function HomePageHeader() {
                         <span className="sr-only">Acme Inc</span>
                     </Link>
                     <Link
-                        href="#home"
+                        href="#contact"
                         className="text-foreground transition-colors hover:text-foreground"
                     >
                     </Link>
@@ -68,19 +97,19 @@ function HomePageHeader() {
                         Home
                     </Link>
                     <Link
-                        href="#"
+                        href="#benefits"
                         className="text-muted-foreground transition-colors hover:text-foreground"
                     >
                         Benefits
                     </Link>
                     <Link
-                        href="#"
+                        href="#about"
                         className="text-muted-foreground transition-colors hover:text-foreground"
                     >
                         About&nbsp;us
                     </Link>
                     <Link
-                        href="#"
+                        href="#contact"
                         className="text-muted-foreground transition-colors hover:text-foreground"
                     >
                         Contact
@@ -136,7 +165,7 @@ function HomePageHeader() {
                     </form>
                     {
                         isLoaded && user ?
-                            <div className={'w-10 h-10 rounded-full border-black-200 border-4 flex items-center justify-center '}>
+                            <div  className={'w-10 h-10 rounded-full border-black-200 border-4 flex items-center justify-center '}>
                                 <UserButton afterSignOutUrl='/home'/>
                             </div>
                              :

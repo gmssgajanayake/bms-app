@@ -28,6 +28,7 @@
     "react-countup": "^6.5.3",
     "react-dom": "^18",
     "react-hook-form": "^7.51.1",
+    "remixicon": "^4.2.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"

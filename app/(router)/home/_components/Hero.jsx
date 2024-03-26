@@ -1,6 +1,8 @@
 "use client"
 import React from 'react'
 import CountUp from "react-countup";
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
 
 
 function Hero() {
@@ -21,29 +23,23 @@ function Hero() {
                             </h1>
                             <div data-aos={"fade-right"} data-aos-duration={"1500"} data-aos-delay={"200"}
                                  className="flex items-center gap-6 mt-7">
-                                <a href="#contact">
-                                    <button
-                                        className="bg-primaryColor text-white font-[500] flex items-center gap-2 hover:bg-smallTextColor ease-in duration-300 py-2 px-4 rounded-[8px]">
-                                        <i className="ri-mail-line"></i> Here me
-                                    </button>
-                                </a>
-                                <a href="#portfolio"
-                                   className={"font-[600] text-[16px] text-smallTextColor border-smallTextColor border-b border-solid "}>
-                                    See portfolio
-                                </a>
+                                <Link href={'/sign-up'}>
+                                    <Button className={'w-32'} variant="outline">Sign In</Button>
+                                </Link>
+                                <Link href={'/sign-up'}>
+                                    <Button className={'w-32'}>Get Started</Button>
+                                </Link>
                             </div>
                             <p data-aos={"fade-left"} data-aos-duration={"1500"}
                                className="flex gap-2 text-headingColor mt-12 font-[500] text-[15px] leading-7 sm:pl-14 sm:pr-10">
                             <span>
                                <i className="ri-apps-2-line"></i>
                             </span>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium dolor fuga
-                                obcaecati
-                                omnis quod sint totam unde veritatis voluptatibus.
+                                A Boarding Management System (BMS) revolutionizes the efficiency and organization of boarding facilities, whether in schools, colleges, hostels, or other residential institutions. With seamless integration of technology and management processes, BMS offers a plethora of benefits.
                             </p>
                             <div className="mt-14 flex items-center gap-9">
                             <span className="font-[600] text-[15px] text-smallTextColor">
-                                Follow me :
+                               Contact us :
                             </span>
                                 <a href="#youtube" className="font-[600] text-[18px] text-smallTextColor">
                                     <i className="ri-youtube-fill"></i>
@@ -72,15 +68,15 @@ function Hero() {
                             className="md:basis-1/5 flex text-center justify-between mt-10 flex-wrap gap-3 md:mt-0 md:flex-col md:justify-end md:text-end">
                             <div className="mb-10">
                                 <h2 className="text-smallTextColor font-[700] text-[32px]">
-                                    <CountUp start={0} end={6} duration={2} suffix={"+"}/>
+                                    <CountUp start={0} end={580} duration={2} suffix={"+"}/>
                                 </h2>
                                 <h4 className="text-headingColor font-[600] text-[18px]">
-                                    Years of Experience
+                                    System users so far
                                 </h4>
                             </div>
                             <div className="mb-10">
                                 <h2 className="text-smallTextColor font-[700] text-[32px]">
-                                    <CountUp start={0} end={100} duration={2} suffix={"%"}/>
+                                    <CountUp start={0} end={98} duration={2} suffix={"%"}/>
                                 </h2>
                                 <h4 className="text-headingColor font-[600] text-[18px]">
                                     Success Rate
@@ -88,18 +84,18 @@ function Hero() {
                             </div>
                             <div className="mb-10">
                                 <h2 className="text-smallTextColor font-[700] text-[32px]">
-                                    <CountUp start={0} end={150} duration={2} suffix={"+"}/>
+                                    <CountUp start={0} end={180} duration={2} suffix={"+"}/>
                                 </h2>
                                 <h4 className="text-headingColor font-[600] text-[18px]">
-                                    Happy Clients
+                                    Current Members
                                 </h4>
                             </div>
                             <div className="mb-10">
                                 <h2 className="text-smallTextColor font-[700] text-[32px]">
-                                    <CountUp start={0} end={249} duration={2} suffix={"+"}/>
+                                    <CountUp start={0} end={20} duration={2} suffix={"+"}/>
                                 </h2>
                                 <h4 className="text-headingColor font-[600] text-[18px]">
-                                    Projects Completed
+                                    Registered Boarding
                                 </h4>
                             </div>
                         </div>

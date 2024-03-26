@@ -5,6 +5,8 @@ import Header from './_components/Header'
 import Aos from "aos";
 import "aos/dist/aos.css";
 import {useEffect} from "react";
+import "aos/dist/aos.css";
+import "remixicon/fonts/remixicon.css";
 
 function layout({children}) {
 

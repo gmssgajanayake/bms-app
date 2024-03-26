@@ -4,7 +4,6 @@ import HomePageContent from "@/app/(router)/home/_components/HomePageContent";
 import Hero from "@/app/(router)/home/_components/Hero";
 import Contact from "@/app/(router)/home/_components/Contact";
 import Service from "@/app/(router)/home/_components/Service";
-import Portfolio from "@/app/(router)/home/_components/Portfolio";
 
 export const metadata = {
   title: "BMS | Home - Boarding Management System",
@@ -16,7 +15,6 @@ function Home() {
       <HomePageHeader/>
         <Hero></Hero>
         <Service></Service>
-        {/*<Portfolio></Portfolio>*/}
         <Contact></Contact>
       {/*<HomePageContent/>*/}
     </div>
