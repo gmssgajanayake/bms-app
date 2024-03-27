@@ -75,12 +75,7 @@ export function BoardingRegisterForm({clerkId}) {
             <div
                 className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
             </div>
-
-
             <div className={"lg:pl-24"}>
-
-
-
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
@@ -148,12 +143,6 @@ export function BoardingRegisterForm({clerkId}) {
                 </Form>
             </div>
         </main>
-
-
-
-
-
-
     )
 }
 
