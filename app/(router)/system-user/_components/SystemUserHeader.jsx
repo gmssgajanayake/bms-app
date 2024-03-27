@@ -38,36 +38,36 @@ function SystemUserHeader({isMember}) {
               </h1>
             </Link>
             <Link
-                href="#contact"
+                href="../home#contact"
                 className="text-foreground transition-colors hover:text-foreground"
             >
             </Link>
             <Link
-                href="#"
+                href="../home"
                 className="text-muted-foreground transition-colors hover:text-foreground"
             >
 
             </Link>
             <Link
-                href="#"
+                href="../home"
                 className="text-muted-foreground transition-colors hover:text-foreground"
             >
               Home
             </Link>
             <Link
-                href="#benefits"
+                href="../home#benefits"
                 className="text-muted-foreground transition-colors hover:text-foreground"
             >
               Benefits
             </Link>
             <Link
-                href="#about"
+                href="../home#about"
                 className="text-muted-foreground transition-colors hover:text-foreground"
             >
               About&nbsp;us
             </Link>
             <Link
-                href="#contact"
+                href="../home#contact"
                 className="text-muted-foreground transition-colors hover:text-foreground"
             >
               Contact
@@ -87,30 +87,30 @@ function SystemUserHeader({isMember}) {
             <SheetContent side="left">
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
-                    href="#"
+                    href="../home"
                     className="flex items-center gap-2 text-lg font-semibold"
                 >
                   <h1 className="text-headingColor font-[800] text-[1.8rem] sm:text-[40px] leading-[35px] sm:leading-[40px] mt-5 mb-5">
                     BMS
                   </h1>
                 </Link>
-                <Link href="#" className="hover:text-foreground">
+                <Link href="../home" className="hover:text-foreground">
                   Home
                 </Link>
                 <Link
-                    href="#"
+                    href="../home#benefits"
                     className="text-muted-foreground hover:text-foreground"
                 >
                   Benefits
                 </Link>
                 <Link
-                    href="#"
+                    href="../home#admin"
                     className="text-muted-foreground hover:text-foreground"
                 >
-                  About&nbsp;us
+                  Admin&nbsp;roll
                 </Link>
                 <Link
-                    href="#"
+                    href="../home#contact"
                     className="text-muted-foreground hover:text-foreground"
                 >
                   Contact
