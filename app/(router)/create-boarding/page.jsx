@@ -30,7 +30,6 @@ async function page() {
         <div>
             <CreateBoardingHeader isMember={isMember}/>
             <BoardingRegisterForm clerkId={userData.id}/>
-            System User - Boarding Register
         </div>
     )
 }
