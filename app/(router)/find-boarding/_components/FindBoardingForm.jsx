@@ -9,15 +9,30 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+} from "@/components/ui/command"
+
+
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-
+import * as React from "react"
+import { Check, ChevronsUpDown } from "lucide-react"
 
 import { useForm } from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import GlobalApi from "@/app/_utils/GlobalApi";
 import {useRouter} from "next/navigation";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+// import * as frameworks from "zod";
+import {cn} from "@/lib/utils";
+import {CommandList} from "cmdk";
 
 
 const formSchema = z.object({
@@ -36,9 +51,35 @@ const formSchema = z.object({
 })
 
 
+const frameworks = [
+    {
+        value: "next.js",
+        label: "Next.js",
+    },
+    {
+        value: "sveltekit",
+        label: "SvelteKit",
+    },
+    {
+        value: "nuxt.js",
+        label: "Nuxt.js",
+    },
+    {
+        value: "remix",
+        label: "Remix",
+    },
+    {
+        value: "astro",
+        label: "Astro",
+    },
+]
+
+
 export function FindBoardingForm({clerkId}) {
 
     const router = useRouter();
+    const [open, setOpen] = React.useState(false)
+    const [value, setValue] = React.useState("")
 
     const form = (useForm({
         resolver: zodResolver(formSchema),
@@ -72,6 +113,52 @@ export function FindBoardingForm({clerkId}) {
             <div className="z-10 mx-auto grid w-full max-w-6xl gap-2">
                 <h1 className="text-3xl font-semibold">Create New Boarding</h1>
             </div>
+
+            <div className="z-10 mx-auto grid w-full max-w-6xl gap-2">
+                <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                        <Button
+                            variant="outline"
+                            role="combobox"
+                            aria-expanded={open}
+                            className="w-[200px] justify-between"
+                        >
+                            {value
+                                ? frameworks.find((framework) => framework.value === value)?.label
+                                : "Select framework..."}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0">
+                        <Command className="rounded-lg border shadow-md">
+                            <CommandInput placeholder="Type a command or search..." />
+                            <CommandList>
+                                <CommandEmpty>No results found.</CommandEmpty>
+                                <CommandGroup heading="Suggestions">
+                                    {frameworks.map((framework) => (
+                                        <CommandItem
+                                            key={framework.value}
+                                            value={framework.value}
+                                            onSelect={(currentValue) => {
+                                                setValue(currentValue === value ? "" : currentValue)
+                                                setOpen(false)
+                                            }}
+                                        >
+                                            <Check
+                                                className={cn(
+                                                    "mr-2 h-4 w-4",
+                                                    value === framework.value ? "opacity-100" : "opacity-0"
+                                                )}
+                                            />
+                                            {framework.label}
+                                        </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </CommandList>
+                        </Command>
+                    </PopoverContent>
+                </Popover>
+            </div>
             <div
                 className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
             </div>
@@ -81,29 +168,30 @@ export function FindBoardingForm({clerkId}) {
                         <FormField
                             control={form.control}
                             name="boardingName"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Boarding Name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Give a name for your boarding" {...field} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
                         <FormField
                             control={form.control}
                             name="adminId"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Admin ID</FormLabel>
                                     <FormControl>
                                         <Input disabled placeholder="Admin ID" {...field} />
                                     </FormControl>
                                     <FormDescription className={'text-red-600'}>
-                                        You will be the admin of this boarding currently however, you can change it later with your boarding members
+                                        You will be the admin of this boarding currently however, you can change it
+                                        later with your boarding members
                                     </FormDescription>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
@@ -111,13 +199,13 @@ export function FindBoardingForm({clerkId}) {
                         <FormField
                             control={form.control}
                             name="address"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Address</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Give your boarding an address" {...field} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
@@ -125,13 +213,14 @@ export function FindBoardingForm({clerkId}) {
                         <FormField
                             control={form.control}
                             name="description"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea  {...field} placeholder="Type your message for boarding members." id="message" />
+                                        <Textarea  {...field} placeholder="Type your message for boarding members."
+                                                   id="message"/>
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />

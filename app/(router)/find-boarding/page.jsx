@@ -2,9 +2,6 @@ import {currentUser} from '@clerk/nextjs';
 import GlobalApi from "@/app/_utils/GlobalApi";
 import FindBoardingHeader from "@/app/(router)/find-boarding/_components/FindBoardingHeader";
 import FindBoardingForm from "@/app/(router)/find-boarding/_components/FindBoardingForm";
-import {CommandDialogDemo} from "@/app/(router)/find-boarding/_components/CommandDialogDemo";
-
-
 
 export const metadata = {
   title: "BMS | Find Boarding Manager - Boarding Management System",
