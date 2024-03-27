@@ -2,6 +2,7 @@ import {currentUser} from '@clerk/nextjs';
 import GlobalApi from "@/app/_utils/GlobalApi";
 import FindBoardingHeader from "@/app/(router)/find-boarding/_components/FindBoardingHeader";
 import FindBoardingForm from "@/app/(router)/find-boarding/_components/FindBoardingForm";
+import {CommandDialogDemo} from "@/app/(router)/find-boarding/_components/CommandDialogDemo";
 
 
 
@@ -41,7 +42,8 @@ async function page() {
       <div>
         <FindBoardingHeader isMember={isMember}/>
         <FindBoardingForm/>
-        System User
+
+
         {/*<MemberRegisterForm response={response} firstName={firstName} lastName={lastName} email={email} address={address} contact={contactNumber} id={id} />*/}
       </div>
   )

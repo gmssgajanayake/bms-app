@@ -7,6 +7,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 import {Menu} from "lucide-react"
 import {UserButton, useUser} from "@clerk/nextjs";
+import {CommandDialogDemo} from "@/app/(router)/find-boarding/_components/CommandDialogDemo";
+import {Input} from "@/components/ui/input";
 
 function FindBoardingHeader({isMember}) {
 
@@ -114,6 +116,7 @@ function FindBoardingHeader({isMember}) {
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
           <form className="ml-auto flex-1 sm:flex-initial">
           </form>
+          <CommandDialogDemo/>
           {
             isLoaded && user ?
                 <div className={' w-10 h-10 rounded-full border-black-200 border-4 flex items-center justify-center '}>
