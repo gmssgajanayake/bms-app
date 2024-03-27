@@ -2,7 +2,7 @@ import React from "react";
 
 export const Service = () => {
     return (
-        <section id={"services"} className="relative pt-10">
+        <section id={"benefits"} className="relative pt-10">
             <div
                 className="absolute top-0 right-0 w-full h-full opacity-[0.15] bg-gradient-to-b from-black via-gray-800 to-white"></div>
             <div className="container lg:pt-5">

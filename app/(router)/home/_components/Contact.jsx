@@ -2,7 +2,7 @@ import React from "react";
 
 function Contact() {
     return (
-        <section className={"pt-10"} id={"contact"}>
+        <section className={"pt-10"} id={"admin"}>
             <div className="container pt-14 pb-20">
                 <div className="md:flex items-center justify-between sm:flex-col md:flex-row">
                     <div data-aos={"fade-right"} data-aos-duration={"1500"} className="basis-1/2 mt-10 sm:mt-0">

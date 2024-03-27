@@ -8,7 +8,7 @@ import Link from "next/link";
 function Hero() {
 
     return (
-            <section className={"pt-10 pb-10"} id={"about"}>
+            <section className={"pt-10 pb-10"} id={"home"}>
                 <div className="container">
                     <div className="md:flex items-center justify-between sm:flex-col md:flex-row">
                         {/* ------------- Hero left content start -------------- */}

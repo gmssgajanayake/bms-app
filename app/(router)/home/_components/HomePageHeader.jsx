@@ -39,36 +39,10 @@ function HomePageHeader() {
     const headerRef = useRef(null);
     const menuRef = useRef(null);
 
-    const toggleMenu = () => menuRef.current.classList.toggle('show_menu');
-    const stickyHeaderFunc = () => {
-        window.addEventListener('scroll', () => {
-            document.body.scrollTop > 80 || document.documentElement.scrollTop > 80 ?
-                headerRef.current.classList.add('sticky_header') :
-                headerRef.current.classList.remove('sticky_header');
-        });
-    }
-
-    useEffect(()=>{
-        stickyHeaderFunc();
-        return window.removeEventListener('scroll',stickyHeaderFunc);
-    },[]);
-
-    const handleClick = e => {
-        e.preventDefault();
-
-        const targetAttr = e.target.getAttribute('href');
-        const location = document.querySelector(targetAttr).offsetTop;
-
-        window.scrollTo({
-            top:location-80,
-            left:0
-        });
-    }
-
 
     return (
             <header ref={headerRef} className="z-50 sticky top-0 flex h-16  items-center gap-4 bg-background px-4 md:px-6">
-                <nav ref={menuRef} onClick={toggleMenu}
+                <nav ref={menuRef} 
                     className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                     <Link onClick={() => {
                         router.push('/home')
@@ -87,13 +61,13 @@ function HomePageHeader() {
                     >
                     </Link>
                     <Link
-                        href="#"
+                        href="#home"
                         className="text-muted-foreground transition-colors hover:text-foreground"
                     >
 
                     </Link>
                     <Link
-                        href="#"
+                        href="#home"
                         className="text-muted-foreground transition-colors hover:text-foreground"
                     >
                         Home
@@ -105,10 +79,10 @@ function HomePageHeader() {
                         Benefits
                     </Link>
                     <Link
-                        href="#about"
+                        href="#admin"
                         className="text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        About&nbsp;us
+                        Admin&nbsp;roll
                     </Link>
                     <Link
                         href="#contact"
@@ -131,30 +105,30 @@ function HomePageHeader() {
                     <SheetContent side="left">
                         <nav className="grid gap-6 text-lg font-medium">
                             <Link
-                                href="#"
+                                href="#home"
                                 className="flex items-center gap-2 text-lg font-semibold"
                             >
                                 <h1 className="text-headingColor font-[800] text-[1.8rem] sm:text-[40px] leading-[35px] sm:leading-[40px] mt-5 mb-5">
                                     BMS
                                 </h1>
                             </Link>
-                            <Link href="#" className="hover:text-foreground">
+                            <Link href="#home" className="hover:text-foreground">
                                 Home
                             </Link>
                             <Link
-                                href="#"
+                                href="#benefits"
                                 className="text-muted-foreground hover:text-foreground"
                             >
                                 Benefits
                             </Link>
                             <Link
-                                href="#"
+                                href="#admin"
                                 className="text-muted-foreground hover:text-foreground"
                             >
-                                About&nbsp;us
+                                Admin&nbsp;roll
                             </Link>
                             <Link
-                                href="#"
+                                href="#contact"
                                 className="text-muted-foreground hover:text-foreground"
                             >
                                 Contact
