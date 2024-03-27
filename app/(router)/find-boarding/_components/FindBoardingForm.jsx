@@ -114,7 +114,7 @@ export function FindBoardingForm({clerkId}) {
                 <h1 className="text-3xl font-semibold">Create New Boarding</h1>
             </div>
 
-            <div className="z-10 mx-auto grid w-full max-w-6xl gap-2">
+            <div className=" mx-auto grid w-full max-w-6xl gap-2">
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
                         <Button
@@ -129,7 +129,7 @@ export function FindBoardingForm({clerkId}) {
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
+                    <PopoverContent className="w-[200px]  p-0">
                         <Command className="rounded-lg border shadow-md">
                             <CommandInput placeholder="Type a command or search..." />
                             <CommandList>
