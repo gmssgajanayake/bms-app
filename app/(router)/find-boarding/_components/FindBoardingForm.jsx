@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+import {Check, ChevronsUpDown, Search} from "lucide-react"
 
 import { useForm } from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -95,19 +95,11 @@ export function FindBoardingForm({clerkId}) {
         }
     }))
 
-    async function createBoarding(data){
-        await GlobalApi.createNewBoarding(data.boardingName,data.address,data.description,clerkId).then(resp => {
-            console.log(resp)
-            router.push('/member/dashboard')
-        }).catch(error => {
-            console.log(error.message)
-        })
-    }
 
     async function getAllBoardings(){
         await GlobalApi.getAllBoardings().then(resp=>{
             frameworks=resp.boardings
-            console.log(frameworks)
+            //console.log(frameworks)
         }).catch(error=>{
             console.log(error)
         })
@@ -115,7 +107,7 @@ export function FindBoardingForm({clerkId}) {
 
 
     const onSubmit = (data) => {
-        createBoarding(data);
+        console.log(data)
     }
 
     const setValueFields = (framework) => {
@@ -139,14 +131,15 @@ export function FindBoardingForm({clerkId}) {
                 <h1 className="text-3xl font-semibold">Find New Boarding</h1>
             </div>
 
-            <div className=" mx-auto grid w-full max-w-6xl gap-2">
+            <div className=" flex mx-auto justify-center items-center w-full max-w-6xl gap-6">
+                <Search/>
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
                             role="combobox"
                             aria-expanded={open}
-                            className="w-[200px] justify-between"
+                            className="w-full justify-between"
                         >
                             {value
                                 ? frameworks.find((framework) => {
@@ -154,34 +147,34 @@ export function FindBoardingForm({clerkId}) {
                                     return framework.id === value
                                 })?.id
                                 : "Search ID"}
-                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-[200px]  p-0">
                         <Command className="rounded-lg border shadow-md">
-                            <CommandInput placeholder="Type a command or search..." />
+                            <CommandInput placeholder="Type a command or search..."/>
                             <CommandList>
                                 <CommandEmpty>No results found.</CommandEmpty>
                                 <CommandGroup heading="Suggestions">
                                     {
                                         frameworks.map((framework) => (
-                                            (framework.availability && framework.members[0]!=null) && <CommandItem
-                                            key={framework.id}
-                                            value={framework.id}
-                                            onSelect={(currentValue) => {
-                                                setValue(currentValue === value ? "" : currentValue)
-                                                setOpen(false)
-                                            }}
-                                        >
-                                            <Check
-                                                className={cn(
-                                                    "mr-2 h-4 w-4",
-                                                    value === framework.id ? "opacity-100" : "opacity-0"
-                                                )}
-                                            />
-                                            {framework.id}
-                                        </CommandItem>
-                                    ))
+                                            (framework.availability && framework.members[0] != null) && <CommandItem
+                                                key={framework.id}
+                                                value={framework.id}
+                                                onSelect={(currentValue) => {
+                                                    setValue(currentValue === value ? "" : currentValue)
+                                                    setOpen(false)
+                                                }}
+                                            >
+                                                <Check
+                                                    className={cn(
+                                                        "mr-2 h-4 w-4",
+                                                        value === framework.id ? "opacity-100" : "opacity-0"
+                                                    )}
+                                                />
+                                                {framework.id}
+                                            </CommandItem>
+                                        ))
                                     }
                                 </CommandGroup>
                             </CommandList>
@@ -189,8 +182,12 @@ export function FindBoardingForm({clerkId}) {
                     </PopoverContent>
                 </Popover>
             </div>
+
             <div
                 className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+            </div>
+            <div className="z-10 mx-auto grid w-full max-w-6xl gap-2">
+                <h1 className="text-2xl text-gray-500 font-semibold">Searched Boarding Details</h1>
             </div>
             <div className={"lg:pl-24"}>
                 <Form {...form}>
@@ -199,10 +196,11 @@ export function FindBoardingForm({clerkId}) {
                             control={form.control}
                             name="boardingName"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Boarding Name</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Boarding Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Give a name for your boarding" {...field} />
+                                        <Input disabled className={'border-none'}
+                                               placeholder="Selected boarding name" {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
@@ -212,15 +210,11 @@ export function FindBoardingForm({clerkId}) {
                             control={form.control}
                             name="adminId"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Admin ID</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Admin ID</FormLabel>
                                     <FormControl>
-                                        <Input disabled placeholder="Admin ID" {...field} />
+                                        <Input className={'border-none'} disabled placeholder="Admin of the selected boarding" {...field} />
                                     </FormControl>
-                                    <FormDescription className={'text-red-600'}>
-                                        You will be the admin of this boarding currently however, you can change it
-                                        later with your boarding members
-                                    </FormDescription>
                                     <FormMessage/>
                                 </FormItem>
                             )}
@@ -230,10 +224,11 @@ export function FindBoardingForm({clerkId}) {
                             control={form.control}
                             name="address"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Address</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Address</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Give your boarding an address" {...field} />
+                                        <Input disabled className={'border-none'}
+                                               placeholder=" Boarding address" {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
@@ -244,11 +239,11 @@ export function FindBoardingForm({clerkId}) {
                             control={form.control}
                             name="description"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Description</FormLabel>
+                                <FormItem className={" lg:flex"}>
+                                    <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea  {...field} placeholder="Type your message for boarding members."
-                                                   id="message"/>
+                                        <Input  placeholder=" Description" disabled className={'border-none h-[100px]'}  {...field}
+                                               id="message"/>
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
@@ -267,3 +262,4 @@ export function FindBoardingForm({clerkId}) {
 
 
 export default FindBoardingForm
+
