@@ -33,6 +33,8 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 // import * as frameworks from "zod";
 import {cn} from "@/lib/utils";
 import {CommandList} from "cmdk";
+import {log} from "next/dist/server/typescript/utils";
+import {useEffect} from "react";
 
 
 const formSchema = z.object({
@@ -51,27 +53,27 @@ const formSchema = z.object({
 })
 
 
-const frameworks = [
-    {
-        value: "next.js",
-        label: "Next.js",
-    },
-    {
-        value: "sveltekit",
-        label: "SvelteKit",
-    },
-    {
-        value: "nuxt.js",
-        label: "Nuxt.js",
-    },
-    {
-        value: "remix",
-        label: "Remix",
-    },
-    {
-        value: "astro",
-        label: "Astro",
-    },
+var frameworks = [
+    // {
+    //     value: "next.js",
+    //     label: "Next.js",
+    // },
+    // {
+    //     value: "sveltekit",
+    //     label: "SvelteKit",
+    // },
+    // {
+    //     value: "nuxt.js",
+    //     label: "Nuxt.js",
+    // },
+    // {
+    //     value: "remix",
+    //     label: "Remix",
+    // },
+    // {
+    //     value: "astro",
+    //     label: "Astro",
+    // },
 ]
 
 
@@ -81,11 +83,13 @@ export function FindBoardingForm({clerkId}) {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
 
+
+
     const form = (useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             boardingName: "",
-            adminId: clerkId,
+            adminId: "",
             address: "",
             description: "",
         }
@@ -100,18 +104,39 @@ export function FindBoardingForm({clerkId}) {
         })
     }
 
+    async function getAllBoardings(){
+        await GlobalApi.getAllBoardings().then(resp=>{
+            frameworks=resp.boardings
+            console.log(frameworks)
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
+
 
     const onSubmit = (data) => {
         createBoarding(data);
     }
 
+    const setValueFields = (framework) => {
+        form.setValue("boardingName", framework?.name)
+        form.setValue("adminId", framework?.members[0]!==null?framework?.members[0].id:'')
+        form.setValue("address", framework?.address)
+        form.setValue("description", framework?.discription)
+    }
+
+
+    useEffect(() => {
+        getAllBoardings();
+        //setValueFields(wo);
+    });
 
 
     return (
         <main
             className="z-10  flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
             <div className="z-10 mx-auto grid w-full max-w-6xl gap-2">
-                <h1 className="text-3xl font-semibold">Create New Boarding</h1>
+                <h1 className="text-3xl font-semibold">Find New Boarding</h1>
             </div>
 
             <div className=" mx-auto grid w-full max-w-6xl gap-2">
@@ -124,8 +149,11 @@ export function FindBoardingForm({clerkId}) {
                             className="w-[200px] justify-between"
                         >
                             {value
-                                ? frameworks.find((framework) => framework.value === value)?.label
-                                : "Select framework..."}
+                                ? frameworks.find((framework) => {
+                                    setValueFields(framework)
+                                    return framework.id === value
+                                })?.id
+                                : "Search ID"}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
@@ -135,10 +163,11 @@ export function FindBoardingForm({clerkId}) {
                             <CommandList>
                                 <CommandEmpty>No results found.</CommandEmpty>
                                 <CommandGroup heading="Suggestions">
-                                    {frameworks.map((framework) => (
-                                        <CommandItem
-                                            key={framework.value}
-                                            value={framework.value}
+                                    {
+                                        frameworks.map((framework) => (
+                                            (framework.availability && framework.members[0]!=null) && <CommandItem
+                                            key={framework.id}
+                                            value={framework.id}
                                             onSelect={(currentValue) => {
                                                 setValue(currentValue === value ? "" : currentValue)
                                                 setOpen(false)
@@ -147,12 +176,13 @@ export function FindBoardingForm({clerkId}) {
                                             <Check
                                                 className={cn(
                                                     "mr-2 h-4 w-4",
-                                                    value === framework.value ? "opacity-100" : "opacity-0"
+                                                    value === framework.id ? "opacity-100" : "opacity-0"
                                                 )}
                                             />
-                                            {framework.label}
+                                            {framework.id}
                                         </CommandItem>
-                                    ))}
+                                    ))
+                                    }
                                 </CommandGroup>
                             </CommandList>
                         </Command>

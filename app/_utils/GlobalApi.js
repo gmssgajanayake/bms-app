@@ -88,9 +88,7 @@ const deleteSystemUserByClerkId = async (clerkId) => {
           }
        }
     `;
-    const rest = await request(MASTER_URL, query);
-    console.log(rest);
-    return rest;
+    return await request(MASTER_URL, query);
 }
 
 const updateSystemUserByClerkId = async (clerkId,address,contactNumber) => {
@@ -107,9 +105,7 @@ const updateSystemUserByClerkId = async (clerkId,address,contactNumber) => {
               }
         }
     `;
-    const rest = await request(MASTER_URL, query);
-    console.log(rest);
-    return rest;
+    return await request(MASTER_URL, query);
 }
 
 const createNewBoarding = async (boardingName, boardingAddress, description, clerkId) => {
@@ -132,10 +128,31 @@ const createNewBoarding = async (boardingName, boardingAddress, description, cle
           }
         }
     `;
-    const rest = await request(MASTER_URL, query);
-    console.log(rest);
-    return rest;
+    return await request(MASTER_URL, query);
 }
+
+
+
+const getAllBoardings = async () => {
+    const query = `
+        query MyQuery {
+          boardings {
+            address
+            discription
+            id
+            name
+            availability
+            members(where: {adminStatus: true}) {
+              id
+            }
+          }
+        }
+    `;
+    return await request(MASTER_URL, query);
+}
+
+
+
 
 export default {
     getAllSystemUsers,
@@ -144,5 +161,6 @@ export default {
     deleteSystemUserByClerkId,
     updateSystemUserByClerkId,
     createNewBoarding,
+    getAllBoardings
 }
 
