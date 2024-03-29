@@ -15,6 +15,7 @@ async function page() {
     const userData = await currentUser();
 
     let isMember;
+    let isRequested;
 
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
@@ -25,10 +26,16 @@ async function page() {
         console.log(error)
     })
 
+    await GlobalApi.getAllRequest(userData.id).then(resp => {
+        isRequested = resp.inviteToBoardings.length !== 0
+    }).catch(error => {
+        console.log(error)
+    })
+
 
     return (
         <div>
-            <CreateBoardingHeader isMember={isMember}/>
+            <CreateBoardingHeader isMember={isMember} isRequested={isRequested}/>
             <BoardingRegisterForm clerkId={userData.id}/>
         </div>
     )

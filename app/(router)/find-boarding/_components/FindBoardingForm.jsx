@@ -292,7 +292,6 @@ export function FindBoardingForm({clerkId,isRequested,name,memberId,address,desc
                 { isRequested && <div  className={"flex items-center justify-between"}>
                     <div></div>
                     <Button className={'hover:bg-red-600 bg-red-600 text-white'} onClick={()=>{
-                        console.log("clicked")
                         deleteRequest()
                     }} type="submit">Cancel</Button>
                 </div>

@@ -40,7 +40,6 @@ async function page() {
 
     await GlobalApi.getAllRequest(userData.id).then(resp => {
         isRequested = resp.inviteToBoardings.length !== 0
-        console.log('called',isRequested)
     }).catch(error => {
         console.log(error)
     })

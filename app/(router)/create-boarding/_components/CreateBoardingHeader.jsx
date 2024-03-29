@@ -8,14 +8,19 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {Menu} from "lucide-react"
 import {UserButton, useUser} from "@clerk/nextjs";
 
-function CreateBoardingHeader({isMember}) {
+function CreateBoardingHeader({isMember,isRequested}) {
 
   const {user,isLoaded}=useUser();
   const router=useRouter()
 
-  useEffect(()=>{
-    if(isMember) router.push('/member/dashboard');
-  },[isMember])
+  useEffect(() => {
+    if (isMember) {
+      router.push('/member/dashboard')
+    } else if (isRequested) {
+      router.push('/find-boarding')
+    }
+
+  }, [isMember])
 
   return (
       <header  className=" z-50 sticky top-0 flex h-16 items-center gap-4 bg-white px-4 md:px-6">
