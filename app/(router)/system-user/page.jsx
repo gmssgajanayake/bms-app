@@ -20,6 +20,7 @@ async function page() {
     let email;
     let address;
     let contactNumber;
+    let isRequested;
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
         if (resp !== null) {
@@ -37,9 +38,19 @@ async function page() {
     })
 
 
+    await GlobalApi.getAllRequest(userData.id).then(resp => {
+        isRequested = resp.inviteToBoardings.length !== 0
+        console.log('called',isRequested)
+    }).catch(error => {
+        console.log(error)
+    })
+
+
+
+
     return (
         <div className="flex min-h-screen w-full flex-col">
-            <SystemUserHeader isMember={isMember}/>
+            <SystemUserHeader isMember={isMember} isRequested={isRequested}/>
 
             <MemberRegisterForm response={response} firstName={firstName} lastName={lastName} email={email}
                                 address={address} contact={contactNumber} clerkId={clerkId}/>
