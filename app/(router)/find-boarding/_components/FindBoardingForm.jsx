@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -20,7 +19,6 @@ import {
 
 
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import * as React from "react"
 import {Check, ChevronsUpDown, Search} from "lucide-react"
 
@@ -30,10 +28,8 @@ import {z} from "zod";
 import GlobalApi from "@/app/_utils/GlobalApi";
 import {useRouter} from "next/navigation";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-// import * as frameworks from "zod";
 import {cn} from "@/lib/utils";
 import {CommandList} from "cmdk";
-import {log} from "next/dist/server/typescript/utils";
 import {useEffect} from "react";
 
 
@@ -53,36 +49,17 @@ const formSchema = z.object({
 })
 
 
-var frameworks = [
-    // {
-    //     value: "next.js",
-    //     label: "Next.js",
-    // },
-    // {
-    //     value: "sveltekit",
-    //     label: "SvelteKit",
-    // },
-    // {
-    //     value: "nuxt.js",
-    //     label: "Nuxt.js",
-    // },
-    // {
-    //     value: "remix",
-    //     label: "Remix",
-    // },
-    // {
-    //     value: "astro",
-    //     label: "Astro",
-    // },
-]
+var isRequested=false
 
 
-export function FindBoardingForm({clerkId}) {
+var frameworks = [];
+
+
+export function FindBoardingForm({clerkId,isRequested,name,memberId,address,description,requestId}) {
 
     const router = useRouter();
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
-
 
 
     const form = (useForm({
@@ -106,9 +83,31 @@ export function FindBoardingForm({clerkId}) {
     }
 
 
-    const onSubmit = (data) => {
-        console.log(data)
+    async function createNewRequest(adminId,userId){
+        await GlobalApi.createNewRequesr(adminId,userId).then(resp => {
+            console.log(resp)
+            router.refresh();
+        }).catch(error => {
+            console.log(error.message)
+        })
     }
+
+
+    async function deleteRequest(){
+        await GlobalApi.deleteRequest(requestId).then(resp => {
+            console.log(resp)
+            router.refresh();
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+
+
+    const onSubmit = (data) => {
+        createNewRequest(data.adminId,clerkId)
+        router.refresh()
+    }
+
 
     const setValueFields = (framework) => {
         form.setValue("boardingName", framework?.name)
@@ -118,9 +117,22 @@ export function FindBoardingForm({clerkId}) {
     }
 
 
+    const setDefaultValueFields = (name,memberId,address,description) => {
+        form.setValue("boardingName", name)
+        form.setValue("adminId", memberId)
+        form.setValue("address", address)
+        form.setValue("description", description)
+    }
+
+    setDefaultValueFields(name,memberId,address,description)
+
+
     useEffect(() => {
         getAllBoardings();
-        //setValueFields(wo);
+        if(isRequested){
+            console.log(name)
+
+        }
     });
 
 
@@ -135,20 +147,38 @@ export function FindBoardingForm({clerkId}) {
                 <Search/>
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
-                        <Button
-                            variant="outline"
-                            role="combobox"
-                            aria-expanded={open}
-                            className="w-full justify-between"
-                        >
-                            {value
-                                ? frameworks.find((framework) => {
-                                    setValueFields(framework)
-                                    return framework.id === value
-                                })?.id
-                                : "Search ID"}
-                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
-                        </Button>
+                        {
+                            isRequested ? <Button
+                                disabled
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={open}
+                                className="w-full justify-between"
+                            >
+                                {value
+                                    ? frameworks.find((framework) => {
+                                        setValueFields(framework)
+                                        return framework.id === value
+                                    })?.id
+                                    : "Search ID"}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+                            </Button> :
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={open}
+                                    className="w-full justify-between"
+                                >
+                                    {value
+                                        ? frameworks.find((framework) => {
+                                            setValueFields(framework)
+                                            return framework.id === value
+                                        })?.id
+                                        : "Search ID"}
+                                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+                                </Button>
+                        }
+
                     </PopoverTrigger>
                     <PopoverContent className=" p-0">
                         <Command className="rounded-lg border shadow-md">
@@ -251,10 +281,22 @@ export function FindBoardingForm({clerkId}) {
                         />
                         <div className={'flex gap-4 justify-between'}>
                             <div></div>
-                            <Button type="submit">Create a new boarding</Button>
+                            {
+                                !isRequested &&   <Button type="submit">Request</Button>
+
+                            }
+
                         </div>
                     </form>
                 </Form>
+                { isRequested && <div  className={"flex items-center justify-between"}>
+                    <div></div>
+                    <Button onClick={()=>{
+                        console.log("clicked")
+                        deleteRequest()
+                    }} type="submit">Cancel</Button>
+                </div>
+                }
             </div>
         </main>
     )

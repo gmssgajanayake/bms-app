@@ -112,8 +112,7 @@ const createNewBoarding = async (boardingName, boardingAddress, description, cle
     const query = `
         mutation MyMutation {
           createMember(
-            data: {adminStatus: true, boarding: {create: {name: "${boardingName}", address: "${boardingAddress}", discription: "${description}"}}, 
-            systemUser: {connect: {clerkId: "${clerkId}"}}}
+            data: {adminStatus: true, boarding: {create: {name: "${boardingName}", address: "${boardingAddress}", discription: "${description}", availability: true}}, systemUser: {connect: {clerkId: "${clerkId}"}}}
           ) {
             id
           }
@@ -152,6 +151,68 @@ const getAllBoardings = async () => {
 }
 
 
+const getAllRequest = async (clerkId) => {
+    const query = `
+        query MyQuery {
+          inviteToBoardings(where: {systemUser: {clerkId: "${clerkId}"}}) {
+            id
+            member {
+              id
+              boarding {
+                name
+                id
+                discription
+                address
+              }
+            }
+          }
+        }
+
+    `;
+    return await request(MASTER_URL, query);
+}
+
+
+const createNewRequesr = async (adminId,clerkId) => {
+    const query = `
+       mutation MyMutation {
+          createInviteToBoarding(
+            data: {member: {connect: {id: "${adminId}"}}, systemUser: {connect: {clerkId: "${clerkId}"}}}
+          ) {
+            id
+          }
+          publishManyInviteToBoardings(to: PUBLISHED) {
+            count
+          }
+          publishManyMembers(to: PUBLISHED) {
+            count
+          }
+          publishManySystemUsers(to: PUBLISHED) {
+            count
+          }
+    }
+
+    `;
+    return await request(MASTER_URL, query);
+}
+
+
+
+
+const deleteRequest = async (requestId) => {
+    const query = `
+       mutation MyMutation {
+          deleteInviteToBoarding(where: {id: "${requestId}"}) {
+            id
+          }
+        }
+
+
+    `;
+    return await request(MASTER_URL, query);
+}
+
+
 
 
 export default {
@@ -161,6 +222,8 @@ export default {
     deleteSystemUserByClerkId,
     updateSystemUserByClerkId,
     createNewBoarding,
-    getAllBoardings
+    getAllBoardings,
+    getAllRequest,
+    createNewRequesr,
+    deleteRequest,
 }
-
