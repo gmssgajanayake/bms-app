@@ -2,6 +2,7 @@ import React from 'react'
 import SideNavBar from './_components/SideNavBar'
 import {currentUser} from "@clerk/nextjs";
 import GlobalApi from "@/app/_utils/GlobalApi";
+import MemberHeader from "@/app/(router)/member/_components/MemberHeader";
 
 async function layout({children}) {
     const userData = await currentUser();
@@ -15,10 +16,17 @@ async function layout({children}) {
 
 
   return (
-    <div>Member layout
-     <SideNavBar isAdmin={isAdmin}/>
-     {children}
-    </div>
+
+      <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+          <SideNavBar isAdmin={isAdmin}/>
+          {children}
+      </div>
+
+    // <div>
+    //     {/*Member layout*/}
+    //  {/*<SideNavBar isAdmin={isAdmin}/>*/}
+    //  {children}
+    // </div>
   )
 }
 

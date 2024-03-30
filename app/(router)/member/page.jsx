@@ -17,7 +17,6 @@ async function page() {
     return (
         <div >
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'dashboard'}/>
-            Member
         </div>
     )
 }
