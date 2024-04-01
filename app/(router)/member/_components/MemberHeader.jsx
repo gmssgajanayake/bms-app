@@ -4,15 +4,16 @@ import {useRouter} from "next/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import {
+    Archive, BadgeDollarSign,
     Bell,
     CircleUser,
-    Home,
+    Home, Layers3,
     LineChart,
     Menu,
     Package,
     Package2,
     Search,
-    ShoppingCart,
+    ShoppingCart, User, UserCog,
     Users,
 } from "lucide-react"
 import Link from "next/link"
@@ -61,51 +62,63 @@ function MemberHeader({isMember, isAdmin, fileName}) {
                     <SheetContent side="left" className="flex flex-col">
                         <nav className="grid gap-2 text-lg font-medium">
                             <Link
-                                href="#"
+                                href={'/home'}
                                 className="flex items-center gap-2 text-lg font-semibold"
                             >
-                                <Package2 className="h-6 w-6"/>
-                                <span className="sr-only">Acme Inc</span>
+                                <h1 className="text-headingColor font-[800] text-[1.8rem] sm:text-[40px] leading-[35px] sm:leading-[40px] mt-5 mb-5">
+                                    BMS
+                                </h1>
                             </Link>
                             <Link
-                                href="#"
-                                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                href={'/member/dashboard'}
+                                className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
                                 <Home className="h-5 w-5"/>
                                 Dashboard
                             </Link>
                             <Link
-                                href="#"
-                                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                                href={"/member/profile"}
+                                className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <ShoppingCart className="h-5 w-5"/>
-                                Orders
-                                <Badge
-                                    className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                                    6
-                                </Badge>
+                                <User className="h-4 w-4" />
+                                My Profile
                             </Link>
                             <Link
-                                href="#"
-                                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                href={"/member/boarding"}
+                                className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <Package className="h-5 w-5"/>
-                                Products
+                                <Archive className="h-4 w-4"/>
+                                Boarding
                             </Link>
                             <Link
-                                href="#"
-                                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                href={"/member/budgets"}
+                                className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <Users className="h-5 w-5"/>
-                                Customers
+                                <Layers3 className="h-4 w-4"/>
+                                Budget
                             </Link>
                             <Link
-                                href="#"
-                                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                href={"/member/payments"}
+                                className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <LineChart className="h-5 w-5"/>
-                                Analytics
+                                <BadgeDollarSign className="h-4 w-4"/>
+                                Payments
                             </Link>
+                            {
+                                isAdmin &&
+
+                                <Link
+                                    href={"/member/admin"}
+                                    className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                >
+                                    <UserCog className="h-4 w-4"/>
+                                    Admin Panel
+                                </Link>
+                            }
+
+
+
+
                         </nav>
                         <div className="mt-auto">
                             <Card>

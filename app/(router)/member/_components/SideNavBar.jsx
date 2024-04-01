@@ -25,7 +25,7 @@ function SideNavBar({isAdmin}) {
         <div className=" hidden border-r bg-muted/40 md:block">
             <div className="flex h-full max-h-screen flex-col gap-2">
                 <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-                    <Link href="/home" className="flex items-center gap-2 font-semibold">
+                    <Link href={"/home"} className="flex items-center gap-2 font-semibold">
                         <h1 className="text-headingColor font-[800] text-[1.8rem] sm:text-[40px] leading-[35px] sm:leading-[40px] mt-5 mb-5">
                             BMS
                         </h1>
@@ -41,30 +41,30 @@ function SideNavBar({isAdmin}) {
                             Dashboard
                         </Link>
                         <Link
-                            href="/member/profile"
+                            href={"/member/profile"}
                             className="hover:bg-muted focus:bg-muted focus:text-black flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                         >
                             {/*<ShoppingCart className="h-4 w-4"/>*/}
 
                             <User className="h-4 w-4" />
-                            Profile
+                            My Profile
                         </Link>
                         <Link
-                            href="/member/boarding"
+                            href={"/member/boarding"}
                             className="hover:bg-muted focus:bg-muted focus:text-black flex items-center gap-3 rounded-lg  px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                         >
                             <Archive className="h-4 w-4"/>
                             Boarding
                         </Link>
                         <Link
-                            href="/member/budgets"
+                            href={"/member/budgets"}
                             className="hover:bg-muted focus:bg-muted focus:text-black flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                         >
                             <Layers3 className="h-4 w-4"/>
                             Budget
                         </Link>
                         <Link
-                            href="/member/payments"
+                            href={"/member/payments"}
                             className="hover:bg-muted focus:bg-muted focus:text-black flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                         >
                             <BadgeDollarSign className="h-4 w-4"/>
@@ -74,7 +74,7 @@ function SideNavBar({isAdmin}) {
                             isAdmin &&
 
                         <Link
-                            href="/member/admin"
+                            href={"/member/admin"}
                             className="hover:bg-muted focus:bg-muted focus:text-black flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                         >
                             <UserCog className="h-4 w-4"/>

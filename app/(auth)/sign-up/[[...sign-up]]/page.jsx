@@ -35,7 +35,7 @@ export default function Page() {
                     <div className="max-w-xl lg:max-w-3xl">
                         <div className="relative -mt-16 block lg:hidden">
                             <a
-                                className="cursor-pointer inline-flex size-20 border-4 p-4 border-indigo-200 items-center justify-center rounded-full bg-white text-blue-950  sm:size-20"
+                                className="cursor-pointer inline-flex size-20 border-4 p-4 border-indigo-100 items-center justify-center rounded-full bg-white text-blue-950  sm:size-20"
                                 href="#"
                             >
                                 <h1 className="text-headingColor  font-[800] text-[1.8rem] sm:text-[40px] leading-[35px] sm:leading-[40px] mt-5 mb-5">
