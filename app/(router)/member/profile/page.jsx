@@ -1,7 +1,7 @@
 import {currentUser} from '@clerk/nextjs';
 import GlobalApi from "@/app/_utils/GlobalApi";
 import MemberHeader from "@/app/(router)/member/_components/MemberHeader";
-import {Button} from "@/components/ui/button";
+import MyProfileForm from "@/app/(router)/member/profile/_components/MyProfileForm";
 
 export const metadata = {
     title: "BMS | My profile - Boarding Management System",
@@ -22,18 +22,8 @@ async function page() {
   return (
       <div>
           <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'profile'}/>
-          <div
-              className="flex flex-1 items-center ml-6 mr-6 p-6 justify-center rounded-lg border border-dashed shadow-sm">
-              <div className="flex flex-col items-center gap-1 text-center">
-                  <h3 className="text-2xl font-bold tracking-tight">
-                      You have no products
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                      You can start selling as soon as you add a product.
-                  </p>
-                  <Button className="mt-4">Add Product</Button>
-              </div>
-          </div>
+          <MyProfileForm/>
+
       </div>
   )
 }
