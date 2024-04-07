@@ -206,8 +206,6 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
                 </Form>
             </div>
         </main>
-
-
     )
 }
 
