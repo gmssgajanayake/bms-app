@@ -9,6 +9,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
+import { SquareArrowOutUpLeft } from 'lucide-react';
 import {useClerk} from "@clerk/clerk-react";
 
 const notifications = [
@@ -109,9 +110,9 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
     return (
         <main
             className="z-10  flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-            <div className="z-10 mx-auto grid w-full max-w-6xl gap-2">
-                <h1 className="text-3xl font-semibold">System User Details</h1>
-            </div>
+            {/*<div className="z-10 mx-auto grid w-full max-w-6xl gap-2">*/}
+            {/*    <h1 className="text-3xl font-semibold">System User Details</h1>*/}
+            {/*</div>*/}
             <div
                 className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
             </div>
@@ -203,16 +204,13 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
                             )}
                         />
                         <div className={'flex-col gap-10  p-4 rounded'}>
-                            <div className={'md:flex items-center mb-10  p-4 lg:p-0  gap-4  justify-between'}>
-                                <h1 className={'text-l font-bold'}>To be a member of a boarding</h1>
+                            <div className={'md:flex items-center  p-4 lg:p-0  gap-4  justify-between'}>
+                                <h1 className={'text-l font-bold'}>To update current account details</h1>
                                 <div className={'flex-col gap-4  pt-4 justify-between items-center pb-4 w-full lg:w-1/3 '}>
-                                    <Button className={' bg-[#D7AB71] text-black mb-2 w-full hover:bg-gray-300'} onClick={() => redirectPath = "/create-boarding"} type="submit">Create a
-                                        Boarding</Button>
-                                    <Button className={' w-full hover:bg-gray-300 hover:text-black'} onClick={() => redirectPath = "/find-boarding"} type="submit">Find a
-                                        Boarding</Button>
+                                    <Button className={' bg-black hover:text-black w-full text-white hover:bg-gray-300'} onClick={() => redirectPath = "/create-boarding"} type="submit">Update Account</Button>
                                 </div>
                             </div>
-                            <div className={'flex items-center  p-4 lg:p-0  gap-2 xl:mt20  justify-between'}>
+                            <div className={'flex items-center lg:p-0   xl:mt20  justify-between'}>
                                 <h1 className={'text-l text-l font-bold text-red-500'}></h1>
                                 <Button className={'sm:w-1/3 bg-red-600 hover:bg-red-600'} onClick={() => signOut(() => {
                                     deleteSystemUser(clerkId).then(res => {
@@ -220,7 +218,7 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
                                     }, err => {
                                         console.log(err)
                                     })
-                                })} type="submit"><i class="ri-delete-bin-6-line"></i> &nbsp; &nbsp;Delete My Account</Button>
+                                })} type="submit">   <SquareArrowOutUpLeft /> &nbsp; &nbsp;Left From Boarding</Button>
                             </div>
 
 

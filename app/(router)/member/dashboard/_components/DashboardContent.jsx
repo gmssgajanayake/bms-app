@@ -56,7 +56,7 @@ function DashboardContent(imageUrl) {
 
     return (
         <main className="flex  flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-            <div className="flex flex-1 h-fit bg-black  items-center ml-2 mr-2  justify-between rounded-lg shadow-md">
+            <div className="flex flex-1 h-fit bg-black  items-center  justify-between rounded-lg shadow-md">
                 <div className="md:flex ">
                     <div className="md:shrink-0">
                         <img

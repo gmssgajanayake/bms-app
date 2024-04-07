@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import {useClerk} from "@clerk/clerk-react";
+import { Trash2 } from 'lucide-react';
 
 const notifications = [
     {
@@ -221,7 +222,7 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
                                     }, err => {
                                         console.log(err)
                                     })
-                                })} type="submit"><i class="ri-delete-bin-6-line"></i> &nbsp; &nbsp;Delete My Account</Button>
+                                })} type="submit"><Trash2/> &nbsp; &nbsp;Delete My Account</Button>
                             </div>
 
 
