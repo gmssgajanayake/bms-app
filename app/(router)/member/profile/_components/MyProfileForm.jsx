@@ -11,29 +11,11 @@ import {
 import {Input} from "@/components/ui/input"
 import { SquareArrowOutUpLeft } from 'lucide-react';
 import {useClerk} from "@clerk/clerk-react";
-
-const notifications = [
-    {
-        title: "Your call has been confirmed.",
-        description: "1 hour ago",
-    },
-    {
-        title: "You have a new message!",
-        description: "1 hour ago",
-    },
-    {
-        title: "Your subscription is expiring soon!",
-        description: "2 hours ago",
-    },
-]
-
-
 import {useForm} from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import GlobalApi from "@/app/_utils/GlobalApi";
 import {useRouter} from "next/navigation";
-import {Checkbox} from "@/components/ui/checkbox";
 
 
 const formSchema = z.object({
@@ -70,7 +52,6 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
         console.log(clerkId)
         await GlobalApi.deleteSystemUserByClerkId(clerkId).then(resp => {
             console.log(resp)
-            //router.push('/home')
         }).catch(error => {
             console.log(error.message)
         })
@@ -81,7 +62,7 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
             contact = null
         }
         await GlobalApi.updateSystemUserByClerkId(clerkId, address, contact).then(resp => {
-            router.push(resp.updateSystemUser.id != null ? redirectPath : "/system-user")
+            router.refresh()
         }).catch(error => {
             console.log(error.message)
         })
@@ -101,6 +82,7 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
 
     const onSubmit = (data) => {
         updateSystemUser(data.clerkId, data.address, data.contact)
+        console.log(data)
     }
 
     const setRedirectPath = (path) => {
@@ -110,9 +92,6 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
     return (
         <main
             className="z-10  flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-            {/*<div className="z-10 mx-auto grid w-full max-w-6xl gap-2">*/}
-            {/*    <h1 className="text-3xl font-semibold">System User Details</h1>*/}
-            {/*</div>*/}
             <div
                 className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
             </div>
@@ -221,13 +200,10 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
                                 })} type="submit">   <SquareArrowOutUpLeft /> &nbsp; &nbsp;Left From Boarding</Button>
                             </div>
 
-
                         </div>
 
                     </form>
                 </Form>
-
-
             </div>
         </main>
 

@@ -345,28 +345,6 @@ function DashboardContent(imageUrl) {
                 </Card>
             </div>
         </main>
-        // <div className="flex flex-1 h-fit bg-black  items-center ml-6 mr-6  justify-between rounded-lg shadow-md">
-        //     <div className="md:flex ">
-        //         <div className="md:shrink-0">
-        //             <img
-        //                 className="h-48 sm:rounded-t-xl lg:rounded-l-xl md:rounded-r-none  w-full object-cover md:h-full md:w-48"
-        //                 src={imageUrl.imageUrl}
-        //                 alt="Modern building architecture"/>
-        //         </div>
-        //         <div className="p-8">
-        //             <div className="uppercase tracking-wide text-lg text-indigo-400 font-semibold">
-        //                 G.M.Sakuja Shamal Gajanayake
-        //             </div>
-        //             <h2
-        //                 className="block mt-1 text-md leading-tight font-medium text-gray-400 ">Member ID :
-        //                 jde8349hfdui34fbh38u4bf</h2>
-        //             <h4 className="mt-2 text-slate-500 text-md flex gap-2">Membership : <div><Badge
-        //                 className={'bg-purple-600'}>Member</Badge> <Badge className={'bg-pink-600'}>Admin</Badge>
-        //             </div></h4>
-        //         </div>
-        //     </div>
-        // </div>
-
     )
 }
 
