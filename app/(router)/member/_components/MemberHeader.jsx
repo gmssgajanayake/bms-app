@@ -47,7 +47,7 @@ function MemberHeader({isMember, isAdmin, fileName}) {
 
     return (
         <div className="flex flex-col">
-            <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+            <header className="flex  h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button
@@ -73,35 +73,35 @@ function MemberHeader({isMember, isAdmin, fileName}) {
                                 href={'/member/dashboard'}
                                 className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <Home className="h-5 w-5"/>
+                                <Home className="h-5 w-5 hover:bg-pink-600"/>
                                 Dashboard
                             </Link>
                             <Link
                                 href={"/member/profile"}
                                 className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <User className="h-4 w-4" />
+                                <User className="h-5 w-5" />
                                 My Profile
                             </Link>
                             <Link
                                 href={"/member/boarding"}
                                 className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <Archive className="h-4 w-4"/>
+                                <Archive className="h-5 w-5"/>
                                 Boarding
                             </Link>
                             <Link
                                 href={"/member/budgets"}
                                 className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <Layers3 className="h-4 w-4"/>
+                                <Layers3 className="h-5 w-5"/>
                                 Budget
                             </Link>
                             <Link
                                 href={"/member/payments"}
                                 className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <BadgeDollarSign className="h-4 w-4"/>
+                                <BadgeDollarSign className="h-5 w-5"/>
                                 Payments
                             </Link>
                             {
@@ -111,13 +111,10 @@ function MemberHeader({isMember, isAdmin, fileName}) {
                                     href={"/member/admin"}
                                     className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                                 >
-                                    <UserCog className="h-4 w-4"/>
+                                    <UserCog className="h-5 w-5"/>
                                     Admin Panel
                                 </Link>
                             }
-
-
-
 
                         </nav>
                         <div className="mt-auto">
@@ -139,16 +136,6 @@ function MemberHeader({isMember, isAdmin, fileName}) {
                     </SheetContent>
                 </Sheet>
                 <div className="w-full flex-1">
-                    {/*<form>*/}
-                    {/*    <div className="relative">*/}
-                    {/*        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"/>*/}
-                    {/*        <Input*/}
-                    {/*            type="search"*/}
-                    {/*            placeholder="Search products..."*/}
-                    {/*            className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*</form>*/}
                 </div>
                 <div className={'w-10 h-10 rounded-full border-black-200 border-4 flex items-center justify-center '}>
                     <UserButton afterSignOutUrl='/home'/>
@@ -158,18 +145,6 @@ function MemberHeader({isMember, isAdmin, fileName}) {
                 <div className="flex items-center">
                     <h1 className="text-lg font-semibold md:text-2xl">{fileName.charAt(0).toUpperCase() + fileName.slice(1)}</h1>
                 </div>
-
-                {/*<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">*/}
-                {/*    <div className="flex flex-col items-center gap-1 text-center">*/}
-                {/*        <h3 className="text-2xl font-bold tracking-tight">*/}
-                {/*            You have no products*/}
-                {/*        </h3>*/}
-                {/*        <p className="text-sm text-muted-foreground">*/}
-                {/*            You can start selling as soon as you add a product.*/}
-                {/*        </p>*/}
-                {/*        <Button className="mt-4">Add Product</Button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </main>
         </div>
     )
