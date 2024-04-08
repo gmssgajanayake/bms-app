@@ -204,9 +204,6 @@ function AllPaymentDetails() {
                     </div>
                   </TableCell>
                 </TableRow>
-
-
-
               </TableBody>
             </Table>
           </CardContent>

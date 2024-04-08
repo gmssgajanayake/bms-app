@@ -2,6 +2,7 @@ import {currentUser} from '@clerk/nextjs';
 import GlobalApi from "@/app/_utils/GlobalApi";
 import MemberHeader from "@/app/(router)/member/_components/MemberHeader";
 import {Button} from "@/components/ui/button";
+import BudgetContent from "@/app/(router)/member/budgets/_components/BudgetContent";
 
 
 export const metadata = {
@@ -21,19 +22,15 @@ async function page() {
     console.log(error)
   })
   return (
-      <div>
+      <div className={'flex flex-col gap-6 bg-muted/40 ' }>
           <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'budgets'}/>
           <div
-              className="flex flex-1 items-center ml-6 mr-6 p-6 justify-center rounded-lg border border-dashed shadow-sm">
-              <div className="flex flex-col items-center gap-1 text-center">
-                  <h3 className="text-2xl font-bold tracking-tight">
-                      You have no products
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                      You can start selling as soon as you add a product.
-                  </p>
-                  <Button className="mt-4">Add Product</Button>
-              </div>
+              className="flex bg-white mb-10  flex-col flex-1 items-center ml-6 mr-6 lg:pt-10 p-4 justify-center rounded-lg border border-dashed shadow-sm">
+              <BudgetContent/>
+          </div>
+          <div
+              className="flex  bg-white mb-10  flex-col flex-1 items-center ml-6 mr-6 lg:pt-10 p-4 justify-center rounded-lg border border-dashed shadow-sm">
+              <BudgetContent/>
           </div>
       </div>
   )
