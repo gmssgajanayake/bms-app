@@ -12,6 +12,7 @@ import {
 
 function AdminManage() {
 
+    let placeholder='Yes';
 
     return (
         <div className={'grid gap-6 bg'}>
@@ -24,12 +25,12 @@ function AdminManage() {
                         </h1>
                         <Select onValueChange={(value) => console.log(value)}>
                             <SelectTrigger className="w-[200px] lg:w-[280px]">
-                                <SelectValue placeholder="Select member ID"/>
+                                <SelectValue placeholder={placeholder}/>
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem className={'bg-indigo-100'} value="Yes">Yes, Anyone can request to
+                                <SelectItem value="Yes">Yes, Anyone can request to
                                     join</SelectItem>
-                                <SelectItem className={'bg-red-100'} value="No">No, No one can request to
+                                <SelectItem value="No">No, can't request to
                                     join</SelectItem>
                             </SelectContent>
                         </Select>

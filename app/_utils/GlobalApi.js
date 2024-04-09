@@ -203,6 +203,7 @@ const getBoardingByClerkId = async (ClerkId) => {
             member {
               boarding {
                 id
+                availability
               }
             }
           }
@@ -302,6 +303,27 @@ const acceptRequest = async (clerkId,boardingId,requestId) => {
 }
 
 
+
+const updateBoardingAvailability = async (boardingId,availability) => {
+    const query = `
+      mutation MyMutation {
+          updateBoarding(
+            data: {availability: ${availability}}
+            where: {id: "${boardingId}"}
+          ) {
+            id
+          }
+          publishManyBoardings(to: PUBLISHED) {
+            count
+          }
+        }
+    `;
+    console.log(query)
+    return await request(MASTER_URL, query);
+}
+
+
+
 export default {
     getAllSystemUsers,
     createNewSystemUser,
@@ -316,5 +338,6 @@ export default {
     getAllRequestByBoardingId,
     getBoardingByClerkId,
     acceptRequest,
-    rejectRequest
+    rejectRequest,
+    updateBoardingAvailability
 }
