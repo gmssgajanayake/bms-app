@@ -91,7 +91,7 @@ const deleteSystemUserByClerkId = async (clerkId) => {
     return await request(MASTER_URL, query);
 }
 
-const updateSystemUserByClerkId = async (clerkId,address,contactNumber) => {
+const updateSystemUserByClerkId = async (clerkId, address, contactNumber) => {
     const query = `
         mutation MyMutation {
               updateSystemUser(
@@ -131,7 +131,6 @@ const createNewBoarding = async (boardingName, boardingAddress, description, cle
 }
 
 
-
 const getAllBoardings = async () => {
     const query = `
         query MyQuery {
@@ -151,6 +150,9 @@ const getAllBoardings = async () => {
 }
 
 
+
+
+
 const getAllRequest = async (clerkId) => {
     const query = `
         query MyQuery {
@@ -167,13 +169,50 @@ const getAllRequest = async (clerkId) => {
             }
           }
         }
+    `;
+    return await request(MASTER_URL, query);
+}
+
+const getAllRequestByBoardingId = async (boardingId) => {
+    const query = `
+        query MyQuery {
+          inviteToBoardings(
+            where: {member: {boarding: {id: "${boardingId}"}}}
+          ) {
+            id
+            systemUser {
+              clerkId
+              firstName
+              lastName
+              email
+              contactNumber
+              address
+            }
+          }
+        }
 
     `;
     return await request(MASTER_URL, query);
 }
 
 
-const createNewRequesr = async (adminId,clerkId) => {
+const getBoardingByClerkId = async (ClerkId) => {
+    const query = `
+        query MyQuery {
+          systemUser(where: {clerkId: "${ClerkId}"}) {
+            member {
+              boarding {
+                id
+              }
+            }
+          }
+        }
+
+    `;
+    return await request(MASTER_URL, query);
+}
+
+const createNewRequesr = async (adminId, clerkId) => {
     const query = `
        mutation MyMutation {
           createInviteToBoarding(
@@ -197,8 +236,6 @@ const createNewRequesr = async (adminId,clerkId) => {
 }
 
 
-
-
 const deleteRequest = async (requestId) => {
     const query = `
        mutation MyMutation {
@@ -213,8 +250,6 @@ const deleteRequest = async (requestId) => {
 }
 
 
-
-
 export default {
     getAllSystemUsers,
     createNewSystemUser,
@@ -226,4 +261,6 @@ export default {
     getAllRequest,
     createNewRequesr,
     deleteRequest,
+    getAllRequestByBoardingId,
+    getBoardingByClerkId
 }

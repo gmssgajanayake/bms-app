@@ -1,19 +1,17 @@
 import React from 'react'
-import {Badge} from "@/components/ui/badge";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Slash } from 'lucide-react';
 import {Button} from "@/components/ui/button";
-function RequestManageArea() {
+
+function RequestManageArea(allRequest) {
+
   return (
       <div className={'grid gap-6'}>
         <div className={' grid grid-cols-1 items-center  text-gray-800  '}>
@@ -50,7 +48,7 @@ function RequestManageArea() {
                       User ID
                     </TableHead>
                     <TableHead>
-                      Name of User
+                      Name&nbsp;of&nbsp;User
                     </TableHead>
                     <TableHead>
                       Actions
@@ -58,83 +56,26 @@ function RequestManageArea() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell className={' items-center'}>
-                      <div className="font-medium">8uy4398uihdu3ir</div>
-                    </TableCell>
-                    <TableCell >
-                      <div className="font-medium">G.M.Sakuja Shamal</div>
-                    </TableCell>
-                    <TableCell>
-                     <div className={'grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-6 items-center justify-center '}>
-                       <Button className={'pl-8 pr-8'}>Accept</Button>
-                       <Button className={'pl-8 pr-8'}>Reject</Button>
-                     </div>
-                    </TableCell>
-
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className={' items-center'}>
-                      <div className="font-medium">8uy4398uihdu3ir</div>
-                    </TableCell>
-                    <TableCell >
-                      <div className="font-medium">G.M.Sakuja Shamal</div>
-                    </TableCell>
-                    <TableCell>
-                      <div className={'grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-6 items-center justify-center '}>
-                        <Button className={'pl-8 pr-8'}>Accept</Button>
-                        <Button className={'pl-8 pr-8'}>Reject</Button>
-                      </div>
-                    </TableCell>
-
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className={' items-center'}>
-                      <div className="font-medium">8uy4398uihdu3ir</div>
-                    </TableCell>
-                    <TableCell >
-                      <div className="font-medium">G.M.Sakuja Shamal</div>
-                    </TableCell>
-                    <TableCell>
-                      <div className={'grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-6 items-center justify-center '}>
-                        <Button className={'pl-8 pr-8'}>Accept</Button>
-                        <Button className={'pl-8 pr-8'}>Reject</Button>
-                      </div>
-                    </TableCell>
-
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className={' items-center'}>
-                      <div className="font-medium">8uy4398uihdu3ir</div>
-                    </TableCell>
-                    <TableCell >
-                      <div className="font-medium">G.M.Sakuja Shamal</div>
-                    </TableCell>
-                    <TableCell>
-                      <div className={'grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-6 items-center justify-center '}>
-                        <Button className={'pl-8 pr-8'}>Accept</Button>
-                        <Button className={'pl-8 pr-8'}>Reject</Button>
-                      </div>
-                    </TableCell>
-
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className={' items-center'}>
-                      <div className="font-medium">8uy4398uihdu3ir</div>
-                    </TableCell>
-                    <TableCell >
-                      <div className="font-medium">G.M.Sakuja Shamal</div>
-                    </TableCell>
-                    <TableCell>
-                      <div className={'grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-6 items-center justify-center '}>
-                        <Button className={'pl-8 pr-8'}>Accept</Button>
-                        <Button className={'pl-8 pr-8'}>Reject</Button>
-                      </div>
-                    </TableCell>
-
-                  </TableRow>
-
-
+                  {
+                    allRequest.allRequest.map((request) => {
+                      return (
+                          <TableRow key={request.id}>
+                            <TableCell className={'items-center'}>
+                              <div className="font-medium">{request?.systemUser?.clerkId}</div>
+                            </TableCell>
+                            <TableCell >
+                              <div className="font-medium">{request?.systemUser?.firstName+' '+request?.systemUser?.lastName}</div>
+                            </TableCell>
+                            <TableCell>
+                              <div className={'grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-20 items-center justify-center '}>
+                                <Button className={'pl-8 pr-8'}>Accept</Button>
+                                <Button className={'pl-8 pr-8'}>Reject</Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                      )
+                    })
+                  }
                 </TableBody>
               </Table>
             </CardContent>
