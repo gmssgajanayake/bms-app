@@ -20,7 +20,7 @@ function AdminManage() {
                     <div
                         className="mx-auto grid grid-cols-1  items-center gap-6">
                         <h1 className={'font-bold text-[25px] lg:text-[30px] uppercase'}>
-                           Change your admin status with another member
+                           Change Your Admin Status With Another Member
                         </h1>
                         <Select onValueChange={(value) => console.log(value)}>
                             <SelectTrigger className="w-[200px] lg:w-[280px]">

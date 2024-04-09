@@ -5,6 +5,8 @@ import {Button} from "@/components/ui/button";
 import RequestManageArea from "@/app/(router)/member/admin/_components/RequestManageArea";
 import AdminManage from "@/app/(router)/member/admin/_components/AdminManage";
 import ManageBudget from "@/app/(router)/member/admin/_components/ManageBudget";
+import BudgetContent from "@/app/(router)/member/budgets/_components/BudgetContent";
+import BudgetSpends from "@/app/(router)/member/admin/_components/BudgetSpends";
 
 
 export const metadata = {
@@ -35,6 +37,9 @@ async function page() {
                   <div className="flex flex-col items-center gap-1 text-center">
                       <ManageBudget/>
                   </div>
+                  <div className="flex flex-col items-center gap-1 text-center">
+                     <BudgetSpends/>
+                  </div>
               </div>
               <div
                   className="flex bg-white mb-10  flex-col flex-1 items-center ml-6 mr-6 p-4 justify-center rounded-lg border border-dashed shadow-sm">
@@ -42,6 +47,11 @@ async function page() {
                       <RequestManageArea/>
                   </div>
               </div>
+          </div>
+
+          <div
+              className="flex bg-white mb-10  gap-4 flex-col flex-1 items-center ml-6 mr-6 p-4 rounded-lg border border-dashed shadow-sm">
+             <h1>jcoid</h1>
           </div>
 
       </div>

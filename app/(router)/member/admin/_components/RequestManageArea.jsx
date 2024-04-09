@@ -35,7 +35,7 @@ function RequestManageArea() {
             </div>
           </div>
         </div>
-        <div className=" lg:h-screen overflow-x-scroll grid gap-2 md:gap-4 lg:grid-cols-1 xl:grid-cols-2">
+        <div className=" lg:h-[900px] overflow-x-scroll grid gap-2 md:gap-4 lg:grid-cols-1 xl:grid-cols-2">
           <Card className=" xl:col-span-2 overflow-x-scroll">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
