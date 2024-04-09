@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
@@ -9,8 +10,29 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import {Button} from "@/components/ui/button";
+import GlobalApi from "@/app/_utils/GlobalApi";
+import {useRouter} from "next/navigation";
 
-function RequestManageArea(allRequest) {
+
+function RequestManageArea(allRequest,boardingId) {
+
+  const router = useRouter();
+
+  async function accept(clerkId,boardingId,requestId){
+    await GlobalApi.acceptRequest(clerkId,boardingId,requestId).then(resp => {
+        router.refresh();
+    }).catch(error => {
+        console.log(error.message)
+    })
+  }
+
+  async function reject(requestId){
+    await GlobalApi.rejectRequest(requestId).then(resp => {
+      router.refresh();
+    }).catch(error => {
+      console.log(error.message)
+    })
+  }
 
   return (
       <div className={'grid gap-6'}>
@@ -68,8 +90,18 @@ function RequestManageArea(allRequest) {
                             </TableCell>
                             <TableCell>
                               <div className={'grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-20 items-center justify-center '}>
-                                <Button className={'pl-8 pr-8'}>Accept</Button>
-                                <Button className={'pl-8 pr-8'}>Reject</Button>
+                                <Button onClick={
+                                  () => {
+                                    accept(request?.systemUser?.clerkId,allRequest?.boardingId,request?.id)
+                                  }
+                                }
+                                        className={'pl-8 pr-8'}>Accept</Button>
+                                <Button  onClick={
+                                  () => {
+                                    reject(request?.id)
+                                  }
+                                }
+                                    className={'pl-8 pr-8'}>Reject</Button>
                               </div>
                             </TableCell>
                           </TableRow>

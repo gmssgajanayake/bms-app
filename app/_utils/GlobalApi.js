@@ -243,7 +243,59 @@ const deleteRequest = async (requestId) => {
             id
           }
         }
+    `;
+    return await request(MASTER_URL, query);
+}
 
+const rejectRequest = async (requestId) => {
+    const query = `
+       mutation MyMutation {
+          deleteInviteToBoarding(where: {id: "${requestId}"}) {
+            systemUser {
+              clerkId
+            }
+          }
+          publishManyBoardings(to: PUBLISHED) {
+            count
+          }
+          publishManySystemUsers(to: PUBLISHED) {
+            count
+          }
+          publishManyMembers(to: PUBLISHED) {
+            count
+          }
+        }
+
+
+    `;
+    return await request(MASTER_URL, query);
+}
+
+
+const acceptRequest = async (clerkId,boardingId,requestId) => {
+    const query = `
+       mutation MyMutation {
+          updateBoarding(
+            data: {members: {create: {adminStatus: false, systemUser: {connect: {clerkId: "${clerkId}"}}, boarding: {connect: {id: "${boardingId}"}}}}}
+            where: {id: "${boardingId}"}
+          ) {
+            id
+          }
+          deleteInviteToBoarding(where: {id: "${requestId}"}) {
+            systemUser {
+              clerkId
+            }
+          }
+          publishManyBoardings(to: PUBLISHED) {
+            count
+          }
+          publishManySystemUsers(to: PUBLISHED) {
+            count
+          }
+          publishManyMembers(to: PUBLISHED) {
+            count
+          }
+        }
 
     `;
     return await request(MASTER_URL, query);
@@ -262,5 +314,7 @@ export default {
     createNewRequesr,
     deleteRequest,
     getAllRequestByBoardingId,
-    getBoardingByClerkId
+    getBoardingByClerkId,
+    acceptRequest,
+    rejectRequest
 }

@@ -61,7 +61,7 @@ async function page() {
                 <div
                     className="flex bg-white mb-10  flex-col flex-1 items-center ml-6 mr-6 p-4 justify-center rounded-lg border border-dashed shadow-sm">
                     <div className="flex flex-col items-center gap-1 text-center">
-                        <RequestManageArea allRequest={allRequest}/>
+                        <RequestManageArea allRequest={allRequest} boardingId={boardingId} />
                     </div>
                 </div>
             </div>
