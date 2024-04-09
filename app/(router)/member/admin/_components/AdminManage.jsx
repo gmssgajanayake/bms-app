@@ -3,16 +3,35 @@ import React from 'react'
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import GlobalApi from "@/app/_utils/GlobalApi";
+import {useRouter} from "next/navigation";
 
-function AdminManage() {
+function AdminManage({members,adminId}) {
+    const router = useRouter();
+    let adminMemberId;
 
-    let placeholder='Yes';
+    members.find((member) => {
+        if(member?.systemUser?.clerkId === adminId) adminMemberId=member?.id
+    })
+
+
+    async function changeAdminStatus(adminId,memberId) {
+        await GlobalApi.changeAdmin(memberId,true).then(async resp => {
+            await GlobalApi.changeAdmin(adminId, false).then(resp => {
+                router.push('/member/dashboard');
+                router.refresh();
+            }).catch(error => {
+                console.log(error.message)
+            })
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+
 
     return (
         <div className={'grid gap-6 bg'}>
@@ -23,15 +42,17 @@ function AdminManage() {
                         <h1 className={'font-bold text-[25px] lg:text-[30px] uppercase'}>
                            Change Your Admin Status With Another Member
                         </h1>
-                        <Select onValueChange={(value) => console.log(value)}>
+                        <Select onValueChange={(value) => changeAdminStatus(adminMemberId,value)}>
                             <SelectTrigger className="w-[200px] lg:w-[280px]">
-                                <SelectValue placeholder={placeholder}/>
+                                <SelectValue placeholder={"Select User ID"}/>
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Yes">Yes, Anyone can request to
-                                    join</SelectItem>
-                                <SelectItem value="No">No, can't request to
-                                    join</SelectItem>
+                                {
+                                    members.map((member) => (
+                                        member?.systemUser?.clerkId!==adminId &&  <SelectItem  value={member?.id}>{member?.systemUser?.clerkId}</SelectItem>
+                                    ))
+                                }
+
                             </SelectContent>
                         </Select>
                     </div>

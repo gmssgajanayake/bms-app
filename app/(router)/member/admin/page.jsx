@@ -21,6 +21,7 @@ async function page() {
     let boardingId;
     let allRequest;
     let isAvailable;
+    let members;
 
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
@@ -43,6 +44,12 @@ async function page() {
         console.log(error)
     })
 
+    await GlobalApi.getBoardingMembers(boardingId).then(resp => {
+        members = resp?.boarding?.members
+    }).catch(error => {
+        console.log(error)
+    })
+
     return (
         <div>
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'admin'}/>
@@ -50,7 +57,7 @@ async function page() {
                 <div
                     className="flex bg-white mb-10  gap-4 flex-col flex-1 items-center ml-6 mr-6 p-4 rounded-lg border border-dashed shadow-sm">
                     <div className="flex flex-col items-center gap-1 text-center">
-                        <AdminManage/>
+                        <AdminManage members={members} adminId={userData?.id}/>
                     </div>
                     <div className="flex flex-col items-center gap-1 text-center">
                         <ManageBudget/>
