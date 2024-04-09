@@ -5,7 +5,7 @@ function ManageBudget() {
     return (
         <div className={'grid gap-6'}>
             <div className={' grid grid-cols-1 text-gray-800  '}>
-                <div className={'bg-gray-100 p-10 flex flex-col gap-2 rounded-xl '}>
+                <div className={'bg-gray-100 p-10  flex flex-col gap-2 rounded-xl '}>
                     <h1 className={'font-bold text-[25px] lg:text-[30px] '}>Manage Budgets</h1>
                     <div className={'grid grid-cols-1 gap-6'}>
                         <h2>Last Budget Details : </h2>
