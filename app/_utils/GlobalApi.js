@@ -2,6 +2,28 @@ const {gql, default: request} = require("graphql-request")
 
 const MASTER_URL = 'https://api-ap-south-1.hygraph.com/v2/' + process.env.NEXT_PUBLIC_HYGRAPH_API_KEY + '/master'
 
+// Create a new Date object for the current date and time
+const today = new Date();
+
+// Array of month names to convert month from number to abbreviation
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// Get the day from the Date object
+const day = today.getDate();
+
+// Get the month name from the monthNames array based on the current month
+const month = monthNames[today.getMonth()];
+
+// Get the year from the Date object
+const year = today.getFullYear();
+
+// Format the date as 'DD Mon YYYY'
+const formattedToday = `${day} ${month} ${year}`;
+
+
+
+
+
 const getAllSystemUsers = async () => {
     const query = gql`
         query MyQuery {
@@ -351,9 +373,61 @@ const changeAdmin = async (memberId, adminStatus) => {
       }
     }
     `;
+    return await request(MASTER_URL, query);
+}
 
+
+const getAllBudgets = async (boardingId) => {
+    const query = `
+    query MyQuery {
+          boarding(where: {id: "${boardingId}"}) {
+            budgets {
+              balance
+              closedDate
+              id
+              openedDate
+              statusOfBudget
+              total
+            }
+          }
+        }
+    `;
+    return await request(MASTER_URL, query);
+}
+
+const closeBudget = async (budgetId) => {
+    const query = `
+    mutation MyMutation {
+      updateBudget(data: {closedDate: "${formattedToday}", statusOfBudget: false}, where: {id: "${budgetId}"}) {
+        id
+      }
+        publishManyBudgets(to: PUBLISHED) {
+            count
+         }
+    }
+
+    `;
+    return await request(MASTER_URL, query);
+}
+
+const createNewBudget = async (boardingId, balance) => {
+    const query = `
+    mutation MyMutation {
+      createBudget(
+        data: {total: 0, statusOfBudget: true, openedDate: "${formattedToday}", balance: ${balance}, boarding: {connect: {id: "${boardingId}"}}}
+      ) {
+        id
+      }
+      publishManyBudgets(to: PUBLISHED) {
+        count
+      }
+      publishManyBoardings(to: PUBLISHED) {
+        count
+      }
+    }
+
+    `;
     console.log(query)
-
     return await request(MASTER_URL, query);
 }
 
@@ -375,5 +449,8 @@ export default {
     rejectRequest,
     updateBoardingAvailability,
     getBoardingMembers,
-    changeAdmin
+    changeAdmin,
+    getAllBudgets,
+    createNewBudget,
+    closeBudget
 }

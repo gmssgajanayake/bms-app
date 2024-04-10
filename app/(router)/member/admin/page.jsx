@@ -22,6 +22,11 @@ async function page() {
     let allRequest;
     let isAvailable;
     let members;
+    let budgetId = '-';
+    let openedDate = '-';
+    let balance = 0;
+    let total = 0;
+    let statusOfBudget = false;
 
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
@@ -33,7 +38,7 @@ async function page() {
 
     await GlobalApi.getBoardingByClerkId(userData?.id).then(resp => {
         boardingId = resp?.systemUser?.member?.boarding?.id
-        isAvailable=resp?.systemUser?.member?.boarding?.availability
+        isAvailable = resp?.systemUser?.member?.boarding?.availability
     }).catch(error => {
         console.log(error)
     })
@@ -50,6 +55,19 @@ async function page() {
         console.log(error)
     })
 
+    await GlobalApi.getAllBudgets(boardingId).then(resp => {
+        let lastElement = resp?.boarding?.budgets.length - 1
+        if (resp?.boarding?.budgets.length !== 0) {
+            budgetId = resp?.boarding?.budgets[lastElement].id
+            openedDate = resp?.boarding?.budgets[lastElement].openedDate
+            balance = resp?.boarding?.budgets[lastElement].balance
+            total = resp?.boarding?.budgets[lastElement].total
+            statusOfBudget = resp?.boarding?.budgets[lastElement].statusOfBudget
+        }
+    }).catch(error => {
+        console.log(error)
+    })
+
     return (
         <div>
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'admin'}/>
@@ -60,7 +78,8 @@ async function page() {
                         <AdminManage members={members} adminId={userData?.id}/>
                     </div>
                     <div className="flex flex-col items-center gap-1 text-center">
-                        <ManageBudget/>
+                        <ManageBudget budgetId={budgetId} statusOfBudget={statusOfBudget}
+                                      balance={balance} openedDate={openedDate} total={total} boardingId={boardingId}/>
                     </div>
                     <div className="flex flex-col items-center gap-1 text-center">
                         <BudgetSpends/>
@@ -69,7 +88,7 @@ async function page() {
                 <div
                     className="flex bg-white mb-10  flex-col flex-1 items-center ml-6 mr-6 p-4 justify-center rounded-lg border border-dashed shadow-sm">
                     <div className="flex flex-col items-center gap-1 text-center">
-                        <RequestManageArea allRequest={allRequest} boardingId={boardingId} isAvailable={isAvailable} />
+                        <RequestManageArea allRequest={allRequest} boardingId={boardingId} isAvailable={isAvailable}/>
                     </div>
                 </div>
             </div>
