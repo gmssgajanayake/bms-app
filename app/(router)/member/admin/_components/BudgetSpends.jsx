@@ -68,6 +68,7 @@ function BudgetSpends({balance,statusOfBudget,budgetId}) {
     {
         balance-=price;
         await GlobalApi.createBudgetSpend(reason, price,date,budgetId,description,balance).then(resp => {
+            form.reset()
             router.refresh()
         }).catch(error => {
             console.log(error)

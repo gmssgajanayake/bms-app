@@ -39,7 +39,7 @@ function ManageBudget({balance,openedDate,total,budgetId,statusOfBudget,boarding
                                 <hr/>
                                 <h4 className={'font-normal italic'}><span
                                     className={'font-bold'}>Total Funded Amount :</span>
-                                    <br/> {total}</h4>
+                                    <br/> LKR {parseFloat(total).toFixed(2)}</h4>
                             </div>
                             <div className={'w-[200px] p-1 h-40  flex flex-col justify-center gap-4'}>
                                 <h4 className={'font-normal italic'}><span
@@ -48,7 +48,7 @@ function ManageBudget({balance,openedDate,total,budgetId,statusOfBudget,boarding
                                 <hr/>
                                 <h4 className={'font-normal italic'}><span
                                     className={'font-bold'}>Balance Amount :</span>
-                                    <br/> {balance}
+                                    <br/>LKR {parseFloat(balance).toFixed(2)}
                                 </h4>
                             </div>
                             <div></div>
