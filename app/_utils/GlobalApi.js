@@ -427,10 +427,32 @@ const createNewBudget = async (boardingId, balance) => {
     }
 
     `;
-    console.log(query)
     return await request(MASTER_URL, query);
 }
 
+
+const createBudgetSpend = async (reason, price,date,budgetId,desc,balance) => {
+    const query = `
+    mutation MyMutation {
+      createSpendForBudget(
+        data: {forWhat: "${reason}", price: ${price}, date: "${date}", budget: {connect: {id: "${budgetId}"}}, description: "${desc}"}
+      ) {
+        id
+      }
+      updateBudget(data: {balance: ${balance}}, where: {id: "${budgetId}"}) {
+        id
+      }
+       publishManyBudgets(to: PUBLISHED) {
+        count
+      }
+      publishManySpendForBudgets(to: PUBLISHED) {
+        count
+      }
+    }
+    `;
+    console.log(query)
+    return await request(MASTER_URL, query);
+}
 
 export default {
     getAllSystemUsers,
@@ -452,5 +474,6 @@ export default {
     changeAdmin,
     getAllBudgets,
     createNewBudget,
-    closeBudget
+    closeBudget,
+    createBudgetSpend
 }

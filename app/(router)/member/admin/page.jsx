@@ -82,7 +82,7 @@ async function page() {
                                       balance={balance} openedDate={openedDate} total={total} boardingId={boardingId}/>
                     </div>
                     <div className="flex flex-col items-center gap-1 text-center">
-                        <BudgetSpends/>
+                        <BudgetSpends balance={balance} statusOfBudget={statusOfBudget} budgetId={budgetId}/>
                     </div>
                 </div>
                 <div

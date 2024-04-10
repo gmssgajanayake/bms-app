@@ -1,43 +1,56 @@
 'use client'
 import React from 'react'
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {CalendarIcon, SquareArrowOutUpLeft} from "lucide-react";
+import {CalendarIcon} from "lucide-react";
 import {useRouter} from "next/navigation";
-import {useClerk} from "@clerk/clerk-react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import { cn } from "@/lib/utils"
-import GlobalApi from "@/app/_utils/GlobalApi";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+import {cn} from "@/lib/utils"
+import {Calendar} from "@/components/ui/calendar"
+import {Popover, PopoverContent, PopoverTrigger,} from "@/components/ui/popover"
 import {format} from "date-fns";
+import GlobalApi from "@/app/_utils/GlobalApi";
 
+let budgetBalance = 0
 
 const formSchema = z.object({
     reason: z.string().min(2, {
         message: "Reason is required.",
     }),
     description: z.string().min(0, {
-        message: "Price is required.",
+        message: "Desc is required.",
     }).optional(),
     date: z.date(),
-    price: z.string().min(2, {
-        message: "Price is required.",
-    }).optional()
+    price: z.string().min(1, {
+        message: "Enter valid price",
+    }).refine((value) => parseFloat(value) > 0 && parseFloat(value) <= budgetBalance, {
+        message: "Price must be greater than 0 and less than or equal to " + budgetBalance,
+    }),
 })
 
 
+function formatDatePrevious(inputDate) {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const date = new Date(inputDate);
 
-function BudgetSpends() {
+    // Extract date components
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
 
+    // Format the date in the previous format
+    return `${month} ${day}, ${year}`;
+}
+
+
+
+function BudgetSpends({balance,statusOfBudget,budgetId}) {
+
+    budgetBalance = balance
+    let isEnabled = balance > 0 && statusOfBudget
 
     const form = (useForm({
         resolver: zodResolver(formSchema),
@@ -49,9 +62,23 @@ function BudgetSpends() {
         }
     }))
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const router = useRouter()
+
+    async function createBudgetSpends(reason, price,date,budgetId,description)
+    {
+        balance-=price;
+        await GlobalApi.createBudgetSpend(reason, price,date,budgetId,description,balance).then(resp => {
+            router.refresh()
+        }).catch(error => {
+            console.log(error)
+        })
     }
+
+
+    const onSubmit = (data) => {
+        createBudgetSpends(data.reason, data.price,formatDatePrevious(data.date),budgetId,data.description)
+    }
+
 
   return (
       <div className={'grid gap-6 bg'}>
@@ -99,7 +126,7 @@ function BudgetSpends() {
                                           render={({field}) => (
                                               <FormItem className={" lg:flex"}>
                                                   <FormControl>
-                                                      <Input type={'number'} className={'border-none '}
+                                                      <Input  type={'number'} className={'border-none '}
                                                              placeholder="Price LKR : " {...field} />
                                                   </FormControl>
                                                   <FormMessage/>
@@ -156,9 +183,15 @@ function BudgetSpends() {
                                           <h1 className={'text-l font-bold'}></h1>
                                           <div
                                               className={'flex-col gap-4 justify-between items-center  w-full lg:w-1/3 '}>
-                                              <Button
-                                                  className={' bg-black pl-16 pr-16 hover:text-black w-full text-white hover:bg-gray-300'}
-                                                 type="submit">Submit</Button>
+                                              {
+                                                    isEnabled ? <Button
+                                                        className={' bg-black pl-16 pr-16 hover:text-black w-full text-white hover:bg-gray-300'}
+                                                        type="submit">Submit</Button>:
+                                                        <Button disabled
+                                                            className={' bg-black pl-16 pr-16 w-full text-white'}
+                                                            type="submit">Submit</Button>
+                                              }
+
                                           </div>
                                       </div>
 
