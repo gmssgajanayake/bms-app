@@ -24,8 +24,6 @@ function SystemUserHeader({isMember, isRequested}) {
     }, [isMember])
 
 
-
-
     return (
         <header className=" z-50 sticky top-0 flex h-16 items-center gap-4 bg-white px-4 md:px-6">
             <nav

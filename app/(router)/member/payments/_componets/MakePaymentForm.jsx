@@ -21,7 +21,7 @@ const formSchema = z.object({
 })
 
 
-function MakePaymentForm({budgetId,memberId}) {
+function MakePaymentForm({budgetId, memberId}) {
 
     const router = useRouter();
     const {signOut} = useClerk();
@@ -34,17 +34,17 @@ function MakePaymentForm({budgetId,memberId}) {
         }
     }))
 
-    async function makeMemberPayment(price,budgetId,memberId) {
-        await GlobalApi.makeMemberPayment(price,budgetId,memberId).then(
-            ()=> router.refresh()
-        ).catch(error=>{
+    async function makeMemberPayment(price, budgetId, memberId) {
+        await GlobalApi.makeMemberPayment(price, budgetId, memberId).then(
+            () => router.refresh()
+        ).catch(error => {
             console.log(error)
         })
     }
 
 
     const onSubmit = (data) => {
-        makeMemberPayment(parseFloat(data.contact).toFixed(2),budgetId,memberId)
+        makeMemberPayment(parseFloat(data.contact).toFixed(2), budgetId, memberId)
         form.reset();
         router.refresh()
     }
@@ -54,7 +54,8 @@ function MakePaymentForm({budgetId,memberId}) {
             className="z-10 flex flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
             <div
                 className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-                <Badge variant="outline" className={'justify-center items-center p-2'}>Budget&nbsp;ID&nbsp;:&nbsp;{budgetId}</Badge>
+                <Badge variant="outline"
+                       className={'justify-center items-center p-2'}>Budget&nbsp;ID&nbsp;:&nbsp;{budgetId}</Badge>
             </div>
             <div className={"lg:pl-24"}>
                 <Form  {...form}>

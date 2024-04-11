@@ -24,8 +24,8 @@ async function page() {
     let memberPayments;
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
-        isMember=resp?.systemUser?.member != null;
-        isAdmin=resp?.systemUser?.member?.adminStatus;
+        isMember = resp?.systemUser?.member != null;
+        isAdmin = resp?.systemUser?.member?.adminStatus;
     }).catch(error => {
         console.log(error)
     })
@@ -53,9 +53,9 @@ async function page() {
         memberId = resp?.systemUser?.member?.id
     })
 
-    await GlobalApi.getMemberPaymentByMemberId(memberId).then(res=>{
-        memberPayments=res.memberPayments;
-    }).catch(error=>{
+    await GlobalApi.getMemberPaymentByMemberId(memberId).then(res => {
+        memberPayments = res.memberPayments;
+    }).catch(error => {
         console.log(error)
     })
 
@@ -63,8 +63,8 @@ async function page() {
     return (
         <div>
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'payments'}/>
-            <MakePaymentForm budgetId={budgetId} totalAmount={total} balance={balance} memberId={memberId} />
-            <AllPaymentDetails memberPayments={memberPayments} />
+            <MakePaymentForm budgetId={budgetId} totalAmount={total} balance={balance} memberId={memberId}/>
+            <AllPaymentDetails memberPayments={memberPayments}/>
         </div>
     )
 }

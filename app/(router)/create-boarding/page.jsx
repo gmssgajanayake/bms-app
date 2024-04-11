@@ -5,11 +5,11 @@ import CreateBoardingHeader from "@/app/(router)/create-boarding/_components/Cre
 import BoardingRegisterForm from "@/app/(router)/create-boarding/_components/BoardingRegisterForm";
 
 
-
 export const metadata = {
     title: "BMS | Create Boarding - Boarding Management System",
     description: "Boarding Management System",
 };
+
 async function page() {
 
     const userData = await currentUser();
@@ -19,8 +19,8 @@ async function page() {
 
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
-        if(resp!==null){
-            isMember=resp?.systemUser?.member != null;
+        if (resp !== null) {
+            isMember = resp?.systemUser?.member != null;
         }
     }).catch(error => {
         console.log(error)

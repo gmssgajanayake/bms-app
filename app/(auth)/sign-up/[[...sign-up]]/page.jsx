@@ -1,4 +1,4 @@
-import { SignUp } from "@clerk/nextjs";
+import {SignUp} from "@clerk/nextjs";
 import React from "react";
 import Image from "next/image";
 
@@ -6,10 +6,11 @@ export default function Page() {
     return (
         <section className="bg-white">
             <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
-                <section className="  bg-cover bg-background bg-no-repeat relative bg-black flex h-32 items-end  lg:col-span-5 lg:h-full xl:col-span-6">
+                <section
+                    className="  bg-cover bg-background bg-no-repeat relative bg-black flex h-32 items-end  lg:col-span-5 lg:h-full xl:col-span-6">
                     <div className="hidden lg:relative lg:block lg:p-0">
                         <div className=" bg-black text-white p-12 flex flex-col justify-between">
-                            <div >
+                            <div>
                                 <h1 className="text-4xl font-bold mt-2">BMS</h1>
                                 <div className="bg-transparent text-white  flex flex-col justify-between items-center">
                                     <Image src={'/sign-up-user.png'} alt={'sing up'} width={300} height={300}/>
@@ -18,7 +19,8 @@ export default function Page() {
                             </div>
                             <div>
                                 <p className="text-lg italic">
-                                    "Create your account now! Join our community for exclusive access and personalized experiences.
+                                    "Create your account now! Join our community for exclusive access and personalized
+                                    experiences.
                                     Signing up takes just a minute"
                                 </p>
                                 <p className="text-lg font-semibold mt-4">BMS - Boarding Management System</p>
@@ -48,7 +50,8 @@ export default function Page() {
                             </h1>
 
                             <p className="mt-4 mb-5 leading-relaxed text-gray-500">
-                                Create your account now! Join our community for exclusive access and personalized experiences. Signing up takes just a minute
+                                Create your account now! Join our community for exclusive access and personalized
+                                experiences. Signing up takes just a minute
                             </p>
                         </div>
                         <SignUp/>

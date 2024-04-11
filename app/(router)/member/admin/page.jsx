@@ -70,7 +70,7 @@ async function page() {
     })
 
     await GlobalApi.getAllPaymentsByBoardingId(budgetId).then(resp => {
-        allMemberPayments=resp?.budget?.memberPayments
+        allMemberPayments = resp?.budget?.memberPayments
     }).catch(error => {
         console.log(error)
     })
@@ -99,7 +99,8 @@ async function page() {
                     </div>
                 </div>
             </div>
-            <ManageMemberPayments allMemberPayments={allMemberPayments} budgetId={budgetId} total={total} balance={balance}/>
+            <ManageMemberPayments allMemberPayments={allMemberPayments} budgetId={budgetId} total={total}
+                                  balance={balance}/>
         </div>
     )
 }

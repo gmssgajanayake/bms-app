@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import {useClerk} from "@clerk/clerk-react";
-import { Trash2 } from 'lucide-react';
+import {Trash2} from 'lucide-react';
 
 const notifications = [
     {
@@ -207,22 +207,26 @@ export function MemberRegisterForm({firstName, lastName, email, address, contact
                         <div className={'flex-col gap-10  p-4 rounded'}>
                             <div className={'md:flex items-center mb-10  p-4 lg:p-0  gap-4  justify-between'}>
                                 <h1 className={'text-l font-bold'}>To be a member of a boarding</h1>
-                                <div className={'flex-col gap-4  pt-4 justify-between items-center pb-4 w-full lg:w-1/3 '}>
-                                    <Button className={' bg-[#D7AB71] text-black mb-2 w-full hover:bg-gray-300'} onClick={() => redirectPath = "/create-boarding"} type="submit">Create a
+                                <div
+                                    className={'flex-col gap-4  pt-4 justify-between items-center pb-4 w-full lg:w-1/3 '}>
+                                    <Button className={' bg-[#D7AB71] text-black mb-2 w-full hover:bg-gray-300'}
+                                            onClick={() => redirectPath = "/create-boarding"} type="submit">Create a
                                         Boarding</Button>
-                                    <Button className={' w-full hover:bg-gray-300 hover:text-black'} onClick={() => redirectPath = "/find-boarding"} type="submit">Find a
+                                    <Button className={' w-full hover:bg-gray-300 hover:text-black'}
+                                            onClick={() => redirectPath = "/find-boarding"} type="submit">Find a
                                         Boarding</Button>
                                 </div>
                             </div>
                             <div className={'flex items-center  p-4 lg:p-0  gap-2 xl:mt20  justify-between'}>
                                 <h1 className={'text-l text-l font-bold text-red-500'}></h1>
-                                <Button className={'sm:w-1/3 bg-red-600 hover:bg-red-600'} onClick={() => signOut(() => {
-                                    deleteSystemUser(clerkId).then(res => {
-                                        router.push("/home")
-                                    }, err => {
-                                        console.log(err)
-                                    })
-                                })} type="submit"><Trash2/> &nbsp; &nbsp;Delete My Account</Button>
+                                <Button className={'sm:w-1/3 bg-red-600 hover:bg-red-600'}
+                                        onClick={() => signOut(() => {
+                                            deleteSystemUser(clerkId).then(res => {
+                                                router.push("/home")
+                                            }, err => {
+                                                console.log(err)
+                                            })
+                                        })} type="submit"><Trash2/> &nbsp; &nbsp;Delete My Account</Button>
                             </div>
 
 

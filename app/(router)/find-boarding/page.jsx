@@ -48,7 +48,7 @@ async function page() {
                 addressOfBoarding = resp?.inviteToBoardings[0]?.member?.boarding?.address,
                 description = resp?.inviteToBoardings[0]?.member?.boarding?.discription,
                 memberId = resp?.inviteToBoardings[0]?.member?.id
-                requestId = resp?.inviteToBoardings[0]?.id
+            requestId = resp?.inviteToBoardings[0]?.id
         }
     }).catch(error => {
         console.log(error)

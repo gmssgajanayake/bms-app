@@ -1,8 +1,8 @@
 'use client'
 import React, {useEffect} from 'react'
 import {useRouter} from "next/navigation";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
+import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet"
+import {Button} from "@/components/ui/button"
 import {
     Archive, BadgeDollarSign,
     Bell,
@@ -17,7 +17,7 @@ import {
     Users,
 } from "lucide-react"
 import Link from "next/link"
-import { Badge } from "@/components/ui/badge"
+import {Badge} from "@/components/ui/badge"
 import {
     Card,
     CardContent,
@@ -25,7 +25,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import {Input} from "@/components/ui/input"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -39,9 +39,9 @@ import {UserButton} from "@clerk/nextjs";
 function MemberHeader({isMember, isAdmin, fileName}) {
     const router = useRouter()
     useEffect(() => {
-        router.push(!isMember?'/system-user':fileName === 'admin'?
-            (!isAdmin?'/member/dashboard':'/member/admin'):
-            '/member/'+fileName);
+        router.push(!isMember ? '/system-user' : fileName === 'admin' ?
+            (!isAdmin ? '/member/dashboard' : '/member/admin') :
+            '/member/' + fileName);
 
     }, [isMember])
 
@@ -80,7 +80,7 @@ function MemberHeader({isMember, isAdmin, fileName}) {
                                 href={"/member/profile"}
                                 className="hover:bg-muted focus:bg-muted focus:text-black  mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                             >
-                                <User className="h-5 w-5" />
+                                <User className="h-5 w-5"/>
                                 My Profile
                             </Link>
                             <Link

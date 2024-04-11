@@ -4,12 +4,12 @@ import {Button} from "@/components/ui/button";
 import GlobalApi from "@/app/_utils/GlobalApi";
 import {useRouter} from "next/navigation";
 
-function ManageBudget({balance,openedDate,total,budgetId,statusOfBudget,boardingId}) {
+function ManageBudget({balance, openedDate, total, budgetId, statusOfBudget, boardingId}) {
 
     const router = useRouter();
 
     async function createBudget() {
-        await GlobalApi.createNewBudget(boardingId,balance).then(resp => {
+        await GlobalApi.createNewBudget(boardingId, balance).then(resp => {
             router.refresh();
         }).catch(error => {
             console.log(error.message)
@@ -53,7 +53,9 @@ function ManageBudget({balance,openedDate,total,budgetId,statusOfBudget,boarding
                             </div>
                             <div></div>
                             {
-                                statusOfBudget ?  <Button onClick={closeBudget} className={'bg-red-500 hover:bg-red-500'}>Close budget</Button> :  <Button onClick={createBudget} >Create new budget</Button>
+                                statusOfBudget ?
+                                    <Button onClick={closeBudget} className={'bg-red-500 hover:bg-red-500'}>Close
+                                        budget</Button> : <Button onClick={createBudget}>Create new budget</Button>
                             }
                         </div>
                     </div>

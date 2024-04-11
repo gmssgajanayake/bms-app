@@ -1,5 +1,5 @@
 'use client'
-import { Button } from "@/components/ui/button"
+import {Button} from "@/components/ui/button"
 import {
     Form,
     FormControl,
@@ -18,11 +18,11 @@ import {
 } from "@/components/ui/command"
 
 
-import { Input } from "@/components/ui/input"
+import {Input} from "@/components/ui/input"
 import * as React from "react"
 import {Check, ChevronsUpDown, Search} from "lucide-react"
 
-import { useForm } from "react-hook-form"
+import {useForm} from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import GlobalApi from "@/app/_utils/GlobalApi";
@@ -49,13 +49,13 @@ const formSchema = z.object({
 })
 
 
-var isRequested=false
+var isRequested = false
 
 
 var frameworks = [];
 
 
-export function FindBoardingForm({clerkId,isRequested,name,memberId,address,description,requestId}) {
+export function FindBoardingForm({clerkId, isRequested, name, memberId, address, description, requestId}) {
 
     const router = useRouter();
     const [open, setOpen] = React.useState(false)
@@ -73,19 +73,17 @@ export function FindBoardingForm({clerkId,isRequested,name,memberId,address,desc
     }))
 
 
-    async function getAllBoardings(){
-        await GlobalApi.getAllBoardings().then(resp=>{
-            frameworks=resp.boardings
-            //console.log(frameworks)
-        }).catch(error=>{
+    async function getAllBoardings() {
+        await GlobalApi.getAllBoardings().then(resp => {
+            frameworks = resp.boardings
+        }).catch(error => {
             console.log(error)
         })
     }
 
 
-    async function createNewRequest(adminId,userId){
-        await GlobalApi.createNewRequesr(adminId,userId).then(resp => {
-            console.log(resp)
+    async function createNewRequest(adminId, userId) {
+        await GlobalApi.createNewRequesr(adminId, userId).then(resp => {
             router.refresh();
         }).catch(error => {
             console.log(error.message)
@@ -93,9 +91,8 @@ export function FindBoardingForm({clerkId,isRequested,name,memberId,address,desc
     }
 
 
-    async function deleteRequest(){
+    async function deleteRequest() {
         await GlobalApi.deleteRequest(requestId).then(resp => {
-            console.log(resp)
             router.refresh();
         }).catch(error => {
             console.log(error.message)
@@ -104,32 +101,32 @@ export function FindBoardingForm({clerkId,isRequested,name,memberId,address,desc
 
 
     const onSubmit = (data) => {
-        createNewRequest(data.adminId,clerkId)
+        createNewRequest(data.adminId, clerkId)
         router.refresh()
     }
 
 
     const setValueFields = (framework) => {
         form.setValue("boardingName", framework?.name)
-        form.setValue("adminId", framework?.members[0]!==null?framework?.members[0].id:'')
+        form.setValue("adminId", framework?.members[0] !== null ? framework?.members[0].id : '')
         form.setValue("address", framework?.address)
         form.setValue("description", framework?.discription)
     }
 
 
-    const setDefaultValueFields = (name,memberId,address,description) => {
+    const setDefaultValueFields = (name, memberId, address, description) => {
         form.setValue("boardingName", name)
         form.setValue("adminId", memberId)
         form.setValue("address", address)
         form.setValue("description", description)
     }
 
-    setDefaultValueFields(name,memberId,address,description)
+    setDefaultValueFields(name, memberId, address, description)
 
 
     useEffect(() => {
         getAllBoardings();
-        if(isRequested){
+        if (isRequested) {
             console.log(name)
 
         }
@@ -149,20 +146,20 @@ export function FindBoardingForm({clerkId,isRequested,name,memberId,address,desc
                     <PopoverTrigger asChild>
                         {
                             isRequested ? <Button
-                                disabled
-                                variant="outline"
-                                role="combobox"
-                                aria-expanded={open}
-                                className="w-full justify-between"
-                            >
-                                {value
-                                    ? frameworks.find((framework) => {
-                                        setValueFields(framework)
-                                        return framework.id === value
-                                    })?.id
-                                    : "Search ID"}
-                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
-                            </Button> :
+                                    disabled
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={open}
+                                    className="w-full justify-between"
+                                >
+                                    {value
+                                        ? frameworks.find((framework) => {
+                                            setValueFields(framework)
+                                            return framework.id === value
+                                        })?.id
+                                        : "Search ID"}
+                                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+                                </Button> :
                                 <Button
                                     variant="outline"
                                     role="combobox"
@@ -243,7 +240,8 @@ export function FindBoardingForm({clerkId,isRequested,name,memberId,address,desc
                                 <FormItem className={" lg:flex"}>
                                     <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Admin ID</FormLabel>
                                     <FormControl>
-                                        <Input className={'border-none'} disabled placeholder="Admin of the selected boarding" {...field} />
+                                        <Input className={'border-none'} disabled
+                                               placeholder="Admin of the selected boarding" {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
@@ -272,7 +270,8 @@ export function FindBoardingForm({clerkId,isRequested,name,memberId,address,desc
                                 <FormItem className={" lg:flex"}>
                                     <FormLabel className={"lg:w-1/6 lg:flex lg:items-center"}>Description</FormLabel>
                                     <FormControl>
-                                        <Input  placeholder=" Description" disabled className={'border-none h-[100px]'}  {...field}
+                                        <Input placeholder=" Description" disabled
+                                               className={'border-none h-[100px]'}  {...field}
                                                id="message"/>
                                     </FormControl>
                                     <FormMessage/>
@@ -282,16 +281,16 @@ export function FindBoardingForm({clerkId,isRequested,name,memberId,address,desc
                         <div className={'flex gap-4 justify-between'}>
                             <div></div>
                             {
-                                !isRequested &&   <Button type="submit">Request</Button>
+                                !isRequested && <Button type="submit">Request</Button>
 
                             }
 
                         </div>
                     </form>
                 </Form>
-                { isRequested && <div  className={"flex items-center justify-between"}>
+                {isRequested && <div className={"flex items-center justify-between"}>
                     <div></div>
-                    <Button className={'hover:bg-red-600 bg-red-600 text-white'} onClick={()=>{
+                    <Button className={'hover:bg-red-600 bg-red-600 text-white'} onClick={() => {
                         deleteRequest()
                     }} type="submit">Cancel</Button>
                 </div>

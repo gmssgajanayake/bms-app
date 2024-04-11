@@ -48,7 +48,8 @@ async function page() {
     return (
         <div>
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'profile'}/>
-            <MyProfileForm isAdmin={isAdmin} address={address} firstName={firstName} lastName={lastName} email={email}  contact={contactNumber} clerkId={clerkId}/>
+            <MyProfileForm isAdmin={isAdmin} address={address} firstName={firstName} lastName={lastName} email={email}
+                           contact={contactNumber} clerkId={clerkId}/>
         </div>
     )
 }

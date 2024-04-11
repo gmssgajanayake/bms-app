@@ -35,7 +35,19 @@ import {
 import {log} from "next/dist/server/typescript/utils";
 
 
-function DashboardContent({allMemberPayments,imageUrl, name,memberId,isAdmin,openedDate,closedDate,balance,total,lastBudget,lastBudgetSpends}) {
+function DashboardContent({
+                              allMemberPayments,
+                              imageUrl,
+                              name,
+                              memberId,
+                              isAdmin,
+                              openedDate,
+                              closedDate,
+                              balance,
+                              total,
+                              lastBudget,
+                              lastBudgetSpends
+                          }) {
 
     // Array of weekday names
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -115,14 +127,14 @@ function DashboardContent({allMemberPayments,imageUrl, name,memberId,isAdmin,ope
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                           Last Budget
+                            Last Budget
                         </CardTitle>
                         <DollarSign className="h-4 w-4 text-muted-foreground"/>
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">LKR {parseFloat(lastBudget).toFixed(2)}</div>
                         <p className="text-xs text-muted-foreground">
-                           End Date : {closedDate}
+                            End Date : {closedDate}
                         </p>
                     </CardContent>
                 </Card>
@@ -182,7 +194,8 @@ function DashboardContent({allMemberPayments,imageUrl, name,memberId,isAdmin,ope
                                             <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
                                                 2023-06-23
                                             </TableCell>
-                                            <TableCell className="text-right font-medium">LKR {parseFloat(spend?.price).toFixed(2)}</TableCell>
+                                            <TableCell
+                                                className="text-right font-medium">LKR {parseFloat(spend?.price).toFixed(2)}</TableCell>
                                         </TableRow>
                                     })
                                 }
@@ -200,7 +213,7 @@ function DashboardContent({allMemberPayments,imageUrl, name,memberId,isAdmin,ope
                                 return payment?.painStatus === 'Paid' && <div className="flex items-center gap-4">
                                     <Avatar className="hidden h-9 w-9 sm:flex">
                                         <AvatarImage src="/avatars/01.png" alt="Avatar"/>
-                                        <AvatarFallback>{payment?.member?.systemUser?.firstName[0]+""+payment?.member?.systemUser?.lastName[0] || ""}</AvatarFallback>
+                                        <AvatarFallback>{payment?.member?.systemUser?.firstName[0] + "" + payment?.member?.systemUser?.lastName[0] || ""}</AvatarFallback>
                                     </Avatar>
                                     <div className="grid gap-1">
                                         <p className="text-sm font-medium leading-none">

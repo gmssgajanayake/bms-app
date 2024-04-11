@@ -32,7 +32,7 @@ function BudgetContent({budget}) {
                                 Admin&nbsp;ID&nbsp;:&nbsp;{budget?.boarding?.members[0]?.systemUser?.clerkId}
                             </h2>
                             <h3 className={' font-bold text-[15px]'}>
-                                Closed&nbsp;Date&nbsp;:&nbsp;{budget?.closedDate===null ? 'Not closed yet' : budget?.closedDate}
+                                Closed&nbsp;Date&nbsp;:&nbsp;{budget?.closedDate === null ? 'Not closed yet' : budget?.closedDate}
                             </h3>
                         </div>
 
@@ -141,28 +141,31 @@ function BudgetContent({budget}) {
                                                 <div className="font-medium">{payment?.id}</div>
                                             </TableCell>
                                             <TableCell>
-                                                <div className="font-medium">{payment?.member?.systemUser?.firstName}&nbsp;{payment?.member?.systemUser?.lastName}</div>
+                                                <div
+                                                    className="font-medium">{payment?.member?.systemUser?.firstName}&nbsp;{payment?.member?.systemUser?.lastName}</div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="font-medium">{payment?.id}</div>
                                             </TableCell>
 
                                             <TableCell>
-                                                <div className="font-medium">LKR&nbsp;{parseFloat(payment?.price).toFixed(2)}</div>
+                                                <div
+                                                    className="font-medium">LKR&nbsp;{parseFloat(payment?.price).toFixed(2)}</div>
                                             </TableCell>
 
                                             <TableCell>
-                                                <div className="font-medium">{(payment?.paidDate).split(' ')[0]}&nbsp;{(payment?.paidDate).split(' ')[1]}&nbsp;{(payment?.paidDate).split(' ')[2]}</div>
+                                                <div
+                                                    className="font-medium">{(payment?.paidDate).split(' ')[0]}&nbsp;{(payment?.paidDate).split(' ')[1]}&nbsp;{(payment?.paidDate).split(' ')[2]}</div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="font-medium gap-4">
                                                     {
                                                         payment?.painStatus === 'Paid' ?
                                                             <Badge
-                                                                className={'bg-green-200 text-black'}>Paid</Badge>:
+                                                                className={'bg-green-200 text-black'}>Paid</Badge> :
                                                             payment?.painStatus === 'Unpaid' ?
                                                                 <Badge
-                                                                    className={'bg-red-200 text-black'}>Unpaid</Badge>:
+                                                                    className={'bg-red-200 text-black'}>Unpaid</Badge> :
                                                                 <Badge
                                                                     className={'bg-amber-200 text-black'}>Pending</Badge>
                                                     }

@@ -45,8 +45,6 @@ async function page() {
     })
 
 
-
-
     return (
         <div className="flex min-h-screen w-full flex-col">
             <SystemUserHeader isMember={isMember} isRequested={isRequested}/>

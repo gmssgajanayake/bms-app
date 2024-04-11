@@ -35,17 +35,7 @@ function Header() {
 
 
   return (
-      <div className="flex min-h-screen flex-col fixed">
-
-                  {/*{*/}
-                  {/*    isLoaded && user ?*/}
-                  {/*        <UserButton afterSignOutUrl='/home'/> :*/}
-                  {/*        <Link href={'/sign-up'}>*/}
-                  {/*            <Button>Get Started</Button>*/}
-                  {/*        </Link>*/}
-                  {/*}*/}
-
-      </div>
+      <div className="flex min-h-screen flex-col fixed"></div>
   )
 }
 

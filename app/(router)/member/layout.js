@@ -9,25 +9,19 @@ async function layout({children}) {
     let isAdmin;
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
-        isAdmin=resp?.systemUser?.member?.adminStatus;
+        isAdmin = resp?.systemUser?.member?.adminStatus;
     }).catch(error => {
         console.log(error)
     })
 
 
-  return (
+    return (
 
-      <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-          <SideNavBar isAdmin={isAdmin}/>
-          {children}
-      </div>
-
-    // <div>
-    //     {/*Member layout*/}
-    //  {/*<SideNavBar isAdmin={isAdmin}/>*/}
-    //  {children}
-    // </div>
-  )
+        <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+            <SideNavBar isAdmin={isAdmin}/>
+            {children}
+        </div>
+    )
 }
 
 export default layout

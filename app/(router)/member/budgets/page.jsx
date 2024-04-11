@@ -42,13 +42,13 @@ async function page() {
         <div className={'flex flex-col gap-6 bg-muted/40 '}>
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'budgets'}/>
             {
-                dataSet.map(budget=>{
-                    return(
-                        budget?.closedDate!==null?
-                        <div
-                            className="flex bg-white mb-10  flex-col flex-1 items-center ml-6 mr-6 lg:pt-10 p-4 justify-center rounded-lg border border-dashed shadow-sm">
-                            <BudgetContent budget={budget}/>
-                        </div>:null
+                dataSet.map(budget => {
+                    return (
+                        budget?.closedDate !== null ?
+                            <div
+                                className="flex bg-white mb-10  flex-col flex-1 items-center ml-6 mr-6 lg:pt-10 p-4 justify-center rounded-lg border border-dashed shadow-sm">
+                                <BudgetContent budget={budget}/>
+                            </div> : null
                     )
                 })
             }

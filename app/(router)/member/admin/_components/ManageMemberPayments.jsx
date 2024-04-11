@@ -52,7 +52,6 @@ function ManageMemberPayments({allMemberPayments, budgetId, total, balance}) {
     }
 
 
-
     return (
         <div className=" m-6 grid gap-2 md:gap-4 lg:grid-cols-1 xl:grid-cols-2">
             <Card className=" xl:col-span-2 overflow-x-scroll">
@@ -118,8 +117,8 @@ function ManageMemberPayments({allMemberPayments, budgetId, total, balance}) {
                                                     {isLoaded ?
                                                         <Select
                                                             onValueChange={value => {
-                                                                updateMemberPaymentStatus(payment?.id, value, payment?.painStatus).then(async ()=>{
-                                                                   await router.refresh();
+                                                                updateMemberPaymentStatus(payment?.id, value, payment?.painStatus).then(async () => {
+                                                                    await router.refresh();
                                                                 })
                                                             }}>
                                                             <SelectTrigger className="w-[180px]">
@@ -132,7 +131,7 @@ function ManageMemberPayments({allMemberPayments, budgetId, total, balance}) {
                                                             </SelectContent>
                                                         </Select> :
                                                         <Select disabled={true}
-                                                            onValueChange={value => updateMemberPaymentStatus(payment?.id, value, payment?.painStatus)}>
+                                                                onValueChange={value => updateMemberPaymentStatus(payment?.id, value, payment?.painStatus)}>
                                                             <SelectTrigger className="w-[180px]">
                                                                 <SelectValue placeholder={payment?.painStatus}/>
                                                             </SelectTrigger>

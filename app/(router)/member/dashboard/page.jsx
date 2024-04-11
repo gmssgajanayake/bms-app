@@ -22,13 +22,13 @@ async function page() {
     let openedDate = '';
     let closedDate = '';
 
-    let allMemberPayments=[];
-    let lastBudgetSpends=[];
+    let allMemberPayments = [];
+    let lastBudgetSpends = [];
 
 
     let boardingId;
-    let preBudgetId ;
-    let budgetId ;
+    let preBudgetId;
+    let budgetId;
 
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
@@ -63,26 +63,26 @@ async function page() {
     })
 
 
-    await GlobalApi.getLastBudgetSpends(preBudgetId).then((resp)=> {
-        if(resp?.budget!==null){
-            resp?.budget?.spendForBudgets?.map((item)=>{
-                lastBudget += item.price
-            })
+    await GlobalApi.getLastBudgetSpends(preBudgetId).then((resp) => {
+            if (resp?.budget !== null) {
+                resp?.budget?.spendForBudgets?.map((item) => {
+                    lastBudget += item.price
+                })
+            }
         }
-        }
-    ).catch(error=>{
+    ).catch(error => {
         console.log(error)
     })
 
 
-    await GlobalApi.getLastBudgetSpends(budgetId).then((resp)=> {
-        lastBudgetSpends=resp?.budget?.spendForBudgets
-    }).catch(error=>{
+    await GlobalApi.getLastBudgetSpends(budgetId).then((resp) => {
+        lastBudgetSpends = resp?.budget?.spendForBudgets
+    }).catch(error => {
         console.log(error)
     })
 
     await GlobalApi.getAllPaymentsByBoardingId(budgetId).then(resp => {
-        allMemberPayments=resp?.budget?.memberPayments
+        allMemberPayments = resp?.budget?.memberPayments
     }).catch(error => {
         console.log(error)
     })

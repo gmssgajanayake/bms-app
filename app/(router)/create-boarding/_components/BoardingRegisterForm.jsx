@@ -1,5 +1,5 @@
 'use client'
-import { Button } from "@/components/ui/button"
+import {Button} from "@/components/ui/button"
 import {
     Form,
     FormControl,
@@ -9,11 +9,11 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import {Input} from "@/components/ui/input"
+import {Textarea} from "@/components/ui/textarea"
 
 
-import { useForm } from "react-hook-form"
+import {useForm} from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import GlobalApi from "@/app/_utils/GlobalApi";
@@ -40,6 +40,7 @@ export function BoardingRegisterForm({clerkId}) {
 
     const router = useRouter();
 
+    // form default values
     const form = (useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -50,8 +51,9 @@ export function BoardingRegisterForm({clerkId}) {
         }
     }))
 
-    async function createBoarding(data){
-        await GlobalApi.createNewBoarding(data.boardingName,data.address,data.description,clerkId).then(resp => {
+    // create new boarding
+    async function createBoarding(data) {
+        await GlobalApi.createNewBoarding(data.boardingName, data.address, data.description, clerkId).then(resp => {
             console.log(resp)
             router.push('/member/dashboard')
         }).catch(error => {
@@ -60,10 +62,10 @@ export function BoardingRegisterForm({clerkId}) {
     }
 
 
+    // submit form data
     const onSubmit = (data) => {
         createBoarding(data);
     }
-
 
 
     return (
@@ -81,29 +83,30 @@ export function BoardingRegisterForm({clerkId}) {
                         <FormField
                             control={form.control}
                             name="boardingName"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Boarding Name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Give a name for your boarding" {...field} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
                         <FormField
                             control={form.control}
                             name="adminId"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Admin ID</FormLabel>
                                     <FormControl>
                                         <Input disabled placeholder="Admin ID" {...field} />
                                     </FormControl>
                                     <FormDescription className={'text-red-600'}>
-                                        You will be the admin of this boarding currently however, you can change it later with your boarding members
+                                        You will be the admin of this boarding currently however, you can change it
+                                        later with your boarding members
                                     </FormDescription>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
@@ -111,13 +114,13 @@ export function BoardingRegisterForm({clerkId}) {
                         <FormField
                             control={form.control}
                             name="address"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Address</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Give your boarding an address" {...field} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
@@ -125,13 +128,14 @@ export function BoardingRegisterForm({clerkId}) {
                         <FormField
                             control={form.control}
                             name="description"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea  {...field} placeholder="Type your message for boarding members." id="message" />
+                                        <Textarea  {...field} placeholder="Type your message for boarding members."
+                                                   id="message"/>
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />

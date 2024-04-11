@@ -91,13 +91,14 @@ function BoardingContent({data}) {
                             </TableHeader>
                             <TableBody>
                                 {
-                                    data?.boarding?.members.map((member)=>{
+                                    data?.boarding?.members.map((member) => {
                                         return <TableRow>
                                             <TableCell>
                                                 <div className="font-medium">{member?.systemUser?.clerkId}</div>
                                             </TableCell>
                                             <TableCell>
-                                                <div className="font-medium">{member?.systemUser?.firstName}&nbsp;{member?.systemUser?.lastName}</div>
+                                                <div
+                                                    className="font-medium">{member?.systemUser?.firstName}&nbsp;{member?.systemUser?.lastName}</div>
                                                 <div className="text-sm text-muted-foreground">
                                                     {member?.systemUser?.email}
                                                 </div>
@@ -115,11 +116,13 @@ function BoardingContent({data}) {
                                             </TableCell>
 
                                             <TableCell>
-                                                <div className="font-medium">{member?.systemUser?.address==='' ? "-" : member?.systemUser?.address}</div>
+                                                <div
+                                                    className="font-medium">{member?.systemUser?.address === '' ? "-" : member?.systemUser?.address}</div>
                                             </TableCell>
 
                                             <TableCell>
-                                                <div className="font-medium">{member?.systemUser?.contactNumber===null ? "-" : member?.systemUser?.contactNumber}</div>
+                                                <div
+                                                    className="font-medium">{member?.systemUser?.contactNumber === null ? "-" : member?.systemUser?.contactNumber}</div>
                                             </TableCell>
 
                                         </TableRow>

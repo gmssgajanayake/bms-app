@@ -34,7 +34,7 @@ async function page() {
     })
 
     await GlobalApi.allBoardingMembers(boardingId).then(resp => {
-        data=resp
+        data = resp
     }).catch(error => {
         console.log(error)
     })

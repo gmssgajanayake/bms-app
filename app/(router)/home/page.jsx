@@ -6,19 +6,19 @@ import Contact from "@/app/(router)/home/_components/Contact";
 import Service from "@/app/(router)/home/_components/Service";
 
 export const metadata = {
-  title: "BMS | Home - Boarding Management System",
-  description: "Boarding Management System",
+    title: "BMS | Home - Boarding Management System",
+    description: "Boarding Management System",
 };
+
 function Home() {
-  return (
-    <div >
-      <HomePageHeader/>
-        <Hero></Hero>
-        <Service></Service>
-        <Contact></Contact>
-      {/*<HomePageContent/>*/}
-    </div>
-  )
+    return (
+        <div>
+            <HomePageHeader/>
+            <Hero></Hero>
+            <Service></Service>
+            <Contact></Contact>
+        </div>
+    )
 }
 
 export default Home
