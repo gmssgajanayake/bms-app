@@ -578,10 +578,23 @@ const updateBudget = async (budgetId, total, balance) => {
     }
 
     `;
-    console.log(query)
     return await request(MASTER_URL, query);
 }
 
+
+const getLastBudgetSpends = async (budgetId) => {
+    const query = `
+    query MyQuery {
+          budget(where: {id: "${budgetId}"}) {
+            spendForBudgets {
+              price
+            }
+          }
+        }
+
+    `;
+    return await request(MASTER_URL, query);
+}
 export default {
     getAllSystemUsers,
     createNewSystemUser,
@@ -609,5 +622,6 @@ export default {
     getMemberPaymentByMemberId,
     getAllPaymentsByBoardingId,
     updateMemberPaymentStatus,
-    updateBudget
+    updateBudget,
+    getLastBudgetSpends
 }

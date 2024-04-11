@@ -15,8 +15,9 @@ import GlobalApi from "@/app/_utils/GlobalApi";
 function ManageMemberPayments({allMemberPayments, budgetId, total, balance}) {
 
     const router = useRouter();
+    let isLoaded = true;
 
-    async function updateMemberPaymentStatus(paymentId, status,previousStatus) {
+    async function updateMemberPaymentStatus(paymentId, status, previousStatus) {
         await GlobalApi.updateMemberPaymentStatus(paymentId, status).then(async (resp) => {
             if (status === 'Paid' && previousStatus !== 'Paid') {
                 total += resp?.updateMemberPayment?.price
@@ -24,27 +25,32 @@ function ManageMemberPayments({allMemberPayments, budgetId, total, balance}) {
                 await GlobalApi.updateBudget(
                     budgetId,
                     parseFloat(total).toFixed(2), parseFloat(balance).toFixed(2)).then(
-                    () => router.push('/member/admin')
+                    () => {
+                        router.refresh();
+                    }
                 ).catch(error => {
                     console.log(error.message)
                 })
-            }else if((status === 'Unpaid' || status === 'Pending')&&(previousStatus === 'Paid')){
+            } else if ((status === 'Unpaid' || status === 'Pending') && (previousStatus === 'Paid')) {
                 total -= resp?.updateMemberPayment?.price
                 balance -= resp?.updateMemberPayment?.price
                 await GlobalApi.updateBudget(
                     budgetId,
                     parseFloat(total).toFixed(2), parseFloat(balance).toFixed(2)).then(
-                    () => router.push('/member/admin')
+                    () => {
+                        router.refresh();
+                    }
                 ).catch(error => {
                     console.log(error.message)
                 })
-            }else {
-                router.push('/member/admin');
+            } else {
+                router.refresh();
             }
         }).catch(error => {
             console.log(error.message)
         })
     }
+
 
 
     return (
@@ -82,18 +88,21 @@ function ManageMemberPayments({allMemberPayments, budgetId, total, balance}) {
                         </TableHeader>
                         <TableBody>
                             {
-                              allMemberPayments &&  allMemberPayments.map(payment => {
+                                allMemberPayments && allMemberPayments.map(payment => {
                                         return <TableRow>
                                             <TableCell>
                                                 <div className="font-medium">{payment?.id}</div>
                                             </TableCell>
                                             <TableCell>
-                                                <div className="font-medium">{payment?.member?.systemUser!==null ? payment?.member?.systemUser?.clerkId : <h2 className={'text-red-500'}>Currently&nbsp;Not&nbsp;Available</h2>}</div>
+                                                <div
+                                                    className="font-medium">{payment?.member?.systemUser !== null ? payment?.member?.systemUser?.clerkId :
+                                                    <h2 className={'text-red-500'}>Currently&nbsp;Not&nbsp;Available</h2>}</div>
                                             </TableCell>
 
                                             <TableCell>
                                                 <div
-                                                    className="font-medium">{payment?.member?.systemUser!==null ? payment?.member?.systemUser?.firstName:<h2 className={'flex justify-center items-center'}>_</h2>}&nbsp;{payment?.member?.systemUser?.lastName}</div>
+                                                    className="font-medium">{payment?.member?.systemUser !== null ? payment?.member?.systemUser?.firstName :
+                                                    <h2 className={'flex justify-center items-center'}>_</h2>}&nbsp;{payment?.member?.systemUser?.lastName}</div>
                                             </TableCell>
                                             <TableCell>
                                                 <div
@@ -106,17 +115,34 @@ function ManageMemberPayments({allMemberPayments, budgetId, total, balance}) {
                                             </TableCell>
                                             <TableCell>
                                                 <div className="font-medium gap-4">
-                                                    <Select
-                                                        onValueChange={value => updateMemberPaymentStatus(payment?.id, value,payment?.painStatus)}>
-                                                        <SelectTrigger className="w-[180px]">
-                                                            <SelectValue placeholder={payment?.painStatus}/>
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            <SelectItem value="Paid">Paid</SelectItem>
-                                                            <SelectItem value="Unpaid">Unpaid</SelectItem>
-                                                            <SelectItem value="Pending">Pending</SelectItem>
-                                                        </SelectContent>
-                                                    </Select>
+                                                    {isLoaded ?
+                                                        <Select
+                                                            onValueChange={value => {
+                                                                updateMemberPaymentStatus(payment?.id, value, payment?.painStatus).then(async ()=>{
+                                                                   await router.refresh();
+                                                                })
+                                                            }}>
+                                                            <SelectTrigger className="w-[180px]">
+                                                                <SelectValue placeholder={payment?.painStatus}/>
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value="Paid">Paid</SelectItem>
+                                                                <SelectItem value="Unpaid">Unpaid</SelectItem>
+                                                                <SelectItem value="Pending">Pending</SelectItem>
+                                                            </SelectContent>
+                                                        </Select> :
+                                                        <Select disabled={true}
+                                                            onValueChange={value => updateMemberPaymentStatus(payment?.id, value, payment?.painStatus)}>
+                                                            <SelectTrigger className="w-[180px]">
+                                                                <SelectValue placeholder={payment?.painStatus}/>
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value="Paid">Paid</SelectItem>
+                                                                <SelectItem value="Unpaid">Unpaid</SelectItem>
+                                                                <SelectItem value="Pending">Pending</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                    }
                                                 </div>
                                             </TableCell>
                                         </TableRow>

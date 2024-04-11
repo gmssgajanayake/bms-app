@@ -41,7 +41,7 @@ const formSchema = z.object({
 })
 
 
-export function MyProfileForm({firstName, lastName, email, address, contact, clerkId}) {
+export function MyProfileForm({isAdmin,firstName, lastName, email, address, contact, clerkId}) {
 
     const router = useRouter();
     const {signOut} = useClerk();
@@ -190,16 +190,27 @@ export function MyProfileForm({firstName, lastName, email, address, contact, cle
                                 </div>
                             </div>
                             <div className={'flex items-center lg:p-0   xl:mt20  justify-between'}>
-                                <h1 className={'text-l text-l font-bold text-red-500'}></h1>
-                                <Button className={'sm:w-1/3 bg-red-600 hover:bg-red-600'} onClick={() => signOut(() => {
-                                    deleteSystemUser(clerkId).then(res => {
-                                        router.push("/home")
-                                    }, err => {
-                                        console.log(err)
-                                    })
-                                })} type="submit">   <SquareArrowOutUpLeft /> &nbsp; &nbsp;Left From Boarding</Button>
+                                <h1 className={'text-l text-l font-bold text-red-500'}>
+                                    {isAdmin ? 'Admin can\'t leave from Boarding' : ''}
+                                </h1>
+                                {
+                                    isAdmin ?
+                                        <Button disabled className={'sm:w-1/3 bg-red-600 hover:bg-red-600'} onClick={() => signOut(() => {
+                                            deleteSystemUser(clerkId).then(res => {
+                                                router.push("/home")
+                                            }, err => {
+                                                console.log(err)
+                                            })
+                                        })} type="submit">   <SquareArrowOutUpLeft /> &nbsp; &nbsp;Left From Boarding</Button>:
+                                        <Button className={'sm:w-1/3 bg-red-600 hover:bg-red-600'} onClick={() => signOut(() => {
+                                            deleteSystemUser(clerkId).then(res => {
+                                                router.push("/home")
+                                            }, err => {
+                                                console.log(err)
+                                            })
+                                        })} type="submit">   <SquareArrowOutUpLeft /> &nbsp; &nbsp;Left From Boarding</Button>
+                                }
                             </div>
-
                         </div>
 
                     </form>

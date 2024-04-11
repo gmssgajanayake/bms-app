@@ -15,7 +15,7 @@ function AdminManage({members,adminId}) {
     let adminMemberId;
 
     members.find((member) => {
-        if(member?.systemUser?.clerkId === adminId) adminMemberId=member?.id
+        if(member?.systemUser!==null && member?.systemUser?.clerkId === adminId) adminMemberId=member?.id
     })
 
 

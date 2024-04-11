@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/table"
 
 
-function DashboardContent(imageUrl) {
+function DashboardContent({imageUrl, name,memberId,isAdmin,openedDate,closedDate,balance,total,lastBudget}) {
 
     // Array of weekday names
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -61,19 +61,22 @@ function DashboardContent(imageUrl) {
                     <div className="md:shrink-0">
                         <img
                             className="h-48 rounded-t-xl sm:rounded-t-xl lg:rounded-l-xl md:rounded-r-none  w-full object-cover md:h-full md:w-48"
-                            src={imageUrl.imageUrl}
+                            src={imageUrl}
                             alt="Modern building architecture"/>
                     </div>
                     <div className="p-8">
                         <div className="uppercase tracking-wide text-lg text-indigo-400 font-semibold">
-                            G.M.Sakuja Shamal Gajanayake
+                            {name}
                         </div>
                         <h2
                             className="block mt-1 text-md leading-tight font-medium text-gray-400 ">Member ID :
-                            jde8349hfdui34fbh38u4bf</h2>
-                        <h4 className="mt-2 text-slate-500 text-md flex gap-2">Membership : <div><Badge
-                            className={'bg-purple-600'}>Member</Badge> <Badge
-                            className={'bg-pink-600'}>Admin</Badge>
+                            {memberId}</h2>
+                        <h4 className="mt-2 text-slate-500 text-md flex gap-4">Membership : <div>
+                            {
+                                isAdmin ? <Badge className={'bg-pink-600'}>Admin</Badge> : <Badge
+                                    className={'bg-purple-600'}>Member</Badge>
+                            }
+
                         </div></h4>
                     </div>
                 </div>
@@ -88,9 +91,9 @@ function DashboardContent(imageUrl) {
                         <DollarSign className="h-4 w-4 text-muted-foreground"/>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">LKR 7500.00</div>
+                        <div className="text-2xl font-bold">LKR {parseFloat(total).toFixed(2)}</div>
                         <p className="text-xs text-muted-foreground">
-                            Started Date : {formattedDate}
+                            Started Date : {openedDate}
                         </p>
                     </CardContent>
                 </Card>
@@ -102,7 +105,7 @@ function DashboardContent(imageUrl) {
                         <DollarSign className="h-4 w-4 text-muted-foreground"/>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">LKR 4588.00</div>
+                        <div className="text-2xl font-bold">LKR {parseFloat(balance).toFixed(2)}</div>
                         <p className="text-xs text-muted-foreground">
                             {formattedDate}
                         </p>
@@ -116,9 +119,9 @@ function DashboardContent(imageUrl) {
                         <DollarSign className="h-4 w-4 text-muted-foreground"/>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">LKR 10500.00</div>
+                        <div className="text-2xl font-bold">LKR {parseFloat(lastBudget).toFixed(2)}</div>
                         <p className="text-xs text-muted-foreground">
-                           End Date : {formattedDate}
+                           End Date : {closedDate}
                         </p>
                     </CardContent>
                 </Card>
