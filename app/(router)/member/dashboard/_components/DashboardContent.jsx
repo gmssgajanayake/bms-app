@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/table"
 
 
-function DashboardContent({imageUrl, name,memberId,isAdmin,openedDate,closedDate,balance,total,lastBudget}) {
+function DashboardContent({imageUrl, name,memberId,isAdmin,openedDate,closedDate,balance,total,lastBudget,lastBudgetSpends}) {
 
     // Array of weekday names
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -160,106 +160,31 @@ function DashboardContent({imageUrl, name,memberId,isAdmin,openedDate,closedDate
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">Liam Johnson</div>
-                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                            liam@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        Sale
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        <Badge className="text-xs" variant="outline">
-                                            Approved
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                        2023-06-23
-                                    </TableCell>
-                                    <TableCell className="text-right">$250.00</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">Olivia Smith</div>
-                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                            olivia@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        Refund
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        <Badge className="text-xs" variant="outline">
-                                            Declined
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                        2023-06-24
-                                    </TableCell>
-                                    <TableCell className="text-right">$150.00</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">Noah Williams</div>
-                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                            noah@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        Subscription
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        <Badge className="text-xs" variant="outline">
-                                            Approved
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                        2023-06-25
-                                    </TableCell>
-                                    <TableCell className="text-right">$350.00</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">Emma Brown</div>
-                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                            emma@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        Sale
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        <Badge className="text-xs" variant="outline">
-                                            Approved
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                        2023-06-26
-                                    </TableCell>
-                                    <TableCell className="text-right">$450.00</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">Liam Johnson</div>
-                                        <div className="hidden text-sm text-muted-foreground md:inline">
-                                            liam@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        Sale
-                                    </TableCell>
-                                    <TableCell className="hidden xl:table-column">
-                                        <Badge className="text-xs" variant="outline">
-                                            Approved
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                        2023-06-27
-                                    </TableCell>
-                                    <TableCell className="text-right">$550.00</TableCell>
-                                </TableRow>
+
+                                {
+                                    lastBudgetSpends && lastBudgetSpends.map((spend) => {
+                                        return <TableRow>
+                                            <TableCell>
+                                                <div className="font-medium">{spend?.forWhat}</div>
+                                                <div className="hidden text-sm text-muted-foreground md:inline">
+                                                    {spend?.description}
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="hidden xl:table-column">
+                                                Sale
+                                            </TableCell>
+                                            <TableCell className="hidden xl:table-column">
+                                                <Badge className="text-xs" variant="outline">
+                                                    Approved
+                                                </Badge>
+                                            </TableCell>
+                                            <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
+                                                2023-06-23
+                                            </TableCell>
+                                            <TableCell className="text-right font-medium">LKR {parseFloat(spend?.price).toFixed(2)}</TableCell>
+                                        </TableRow>
+                                    })
+                                }
                             </TableBody>
                         </Table>
                     </CardContent>

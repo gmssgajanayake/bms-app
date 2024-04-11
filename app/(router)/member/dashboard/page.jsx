@@ -23,10 +23,11 @@ async function page() {
     let closedDate = '';
 
     let lastPayments;
-    let lastBudgetPayments;
+    let lastBudgetSpends=[];
 
     let boardingId;
     let preBudgetId ;
+    let budgetId ;
 
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
@@ -47,6 +48,7 @@ async function page() {
 
     await GlobalApi.getAllBudgets(boardingId).then(resp => {
         if (resp?.boarding?.budgets.length > 0) {
+            budgetId = resp?.boarding?.budgets[resp?.boarding?.budgets.length - 1].id
             balance = resp?.boarding?.budgets[resp?.boarding?.budgets.length - 1].balance
             total = resp?.boarding?.budgets[resp?.boarding?.budgets.length - 1].total
             openedDate = resp?.boarding?.budgets[resp?.boarding?.budgets.length - 1].openedDate
@@ -61,7 +63,6 @@ async function page() {
 
 
     await GlobalApi.getLastBudgetSpends(preBudgetId).then((resp)=> {
-
         if(resp?.budget!==null){
             resp?.budget?.spendForBudgets?.map((item)=>{
                 lastBudget += item.price
@@ -73,12 +74,20 @@ async function page() {
     })
 
 
+    await GlobalApi.getLastBudgetSpends(budgetId).then((resp)=> {
+        lastBudgetSpends=resp?.budget?.spendForBudgets
+    }).catch(error=>{
+        console.log(error)
+    })
+
+
     return (
         <div>
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'dashboard'}/>
             <DashboardContent total={total} balance={balance} lastBudget={lastBudget}
                               openedDate={openedDate} closedDate={closedDate} isAdmin={isAdmin}
                               name={name} memberId={memberId} imageUrl={userData?.imageUrl}
+                              lastBudgetSpends={lastBudgetSpends}
             />
         </div>
     )

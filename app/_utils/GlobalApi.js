@@ -21,9 +21,6 @@ const year = today.getFullYear();
 const formattedToday = `${day} ${month} ${year}`;
 
 
-
-
-
 const getAllSystemUsers = async () => {
     const query = gql`
         query MyQuery {
@@ -431,7 +428,7 @@ const createNewBudget = async (boardingId, balance) => {
 }
 
 
-const createBudgetSpend = async (reason, price,date,budgetId,desc,balance) => {
+const createBudgetSpend = async (reason, price, date, budgetId, desc, balance) => {
     const query = `
     mutation MyMutation {
       createSpendForBudget(
@@ -453,7 +450,7 @@ const createBudgetSpend = async (reason, price,date,budgetId,desc,balance) => {
     return await request(MASTER_URL, query);
 }
 
-const makeMemberPayment = async (price,budgetId,memberId) => {
+const makeMemberPayment = async (price, budgetId, memberId) => {
     const query = `
     mutation MyMutation {
           createMemberPayment(
@@ -588,6 +585,8 @@ const getLastBudgetSpends = async (budgetId) => {
           budget(where: {id: "${budgetId}"}) {
             spendForBudgets {
               price
+              description
+               forWhat
             }
           }
         }
