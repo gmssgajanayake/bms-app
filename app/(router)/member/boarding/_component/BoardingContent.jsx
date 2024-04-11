@@ -1,14 +1,10 @@
 import React from 'react'
 import {Badge} from "@/components/ui/badge";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {ArrowUpRight, DollarSign} from "lucide-react";
-import {Button} from "@/components/ui/button";
-import Link from "next/link";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 
 
-function BoardingContent(isAvailable) {
+function BoardingContent({data}) {
 
 
     // Array of weekday names
@@ -42,22 +38,22 @@ function BoardingContent(isAvailable) {
                     </div>
                     <div className="p-8 gap-1 flex flex-col">
                         <div className="uppercase tracking-wide text-lg text-indigo-400 font-semibold">
-                            Name of the Boarding - Bawana
+                            {data?.boarding?.name}
                         </div>
                         <div className="uppercase tracking-wide text-muted-foreground text-indigo-400 font-semibold">
-                            Boarding Address -University of Jaffna road Jaffna
+                            {data?.boarding?.address}
                         </div>
                         <h2
                             className="block mt-1 text-md leading-tight font-medium text-gray-400 ">Boarding
                             ID  &nbsp;:&nbsp;
-                            jde8349hfdui34fbh38u4bf</h2>
+                            {data?.boarding?.id}</h2>
                         <h2
                             className="block mt-1 text-md leading-tight font-medium text-gray-400 ">Admin
                             ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;
-                            jde8349hfdui34fbh38u4bf</h2>
+                            {data?.boarding?.members.find(member => member.adminStatus)?.systemUser?.clerkId}</h2>
                         <h4 className="mt-2 text-slate-500 text-md flex gap-2">Availability to Join : <div>
 
-                            {isAvailable.isAvailable ?
+                            {data?.boarding?.availability ?
                                 <Badge className={'bg-green-600'}>Available now</Badge> :
                                 <Badge className={'bg-pink-600'}>Not Available</Badge>}
                         </div></h4>
@@ -94,142 +90,41 @@ function BoardingContent(isAvailable) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">8uy4398uihdu3ir</div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium">Liam Johnson</div>
-                                        <div className="text-sm text-muted-foreground">
-                                            liam@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium gap-4">
-                                                <Badge
-                                                    className={'bg-purple-600'}>Member</Badge> <Badge
-                                                className={'bg-pink-600'}>Admin</Badge>
-                                        </div>
-                                    </TableCell>
+                                {
+                                    data?.boarding?.members.map((member)=>{
+                                        return <TableRow>
+                                            <TableCell>
+                                                <div className="font-medium">{member?.systemUser?.clerkId}</div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="font-medium">{member?.systemUser?.firstName}&nbsp;{member?.systemUser?.lastName}</div>
+                                                <div className="text-sm text-muted-foreground">
+                                                    {member?.systemUser?.email}
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="font-medium gap-4">
+                                                    {
+                                                        member?.adminStatus ?
+                                                            <Badge
+                                                                className={'bg-pink-600 hover:bg-pink-600'}>Admin</Badge> :
+                                                            <Badge
+                                                                className={'bg-purple-600 hover:bg-purple-600'}>Member</Badge>
+                                                    }
+                                                </div>
+                                            </TableCell>
 
-                                    <TableCell>
-                                        <div className="font-medium">Colombo</div>
-                                    </TableCell>
+                                            <TableCell>
+                                                <div className="font-medium">{member?.systemUser?.address==='' ? "-" : member?.systemUser?.address}</div>
+                                            </TableCell>
 
-                                    <TableCell>
-                                        <div className="font-medium">07123456789</div>
-                                    </TableCell>
+                                            <TableCell>
+                                                <div className="font-medium">{member?.systemUser?.contactNumber===null ? "-" : member?.systemUser?.contactNumber}</div>
+                                            </TableCell>
 
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">8uy4398uihdu3ir</div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium">Liam Johnson</div>
-                                        <div className="text-sm text-muted-foreground">
-                                            liam@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium gap-4">
-                                            <Badge
-                                                className={'bg-purple-600'}>Member</Badge> <Badge
-                                            className={'bg-pink-600'}>Admin</Badge>
-                                        </div>
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <div className="font-medium">Colombo</div>
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <div className="font-medium">07123456789</div>
-                                    </TableCell>
-
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">8uy4398uihdu3ir</div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium">Liam Johnson</div>
-                                        <div className="text-sm text-muted-foreground">
-                                            liam@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium gap-4">
-                                            <Badge
-                                                className={'bg-purple-600'}>Member</Badge> <Badge
-                                            className={'bg-pink-600'}>Admin</Badge>
-                                        </div>
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <div className="font-medium">Colombo</div>
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <div className="font-medium">07123456789</div>
-                                    </TableCell>
-
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">8uy4398uihdu3ir</div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium">Liam Johnson</div>
-                                        <div className="text-sm text-muted-foreground">
-                                            liam@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium gap-4">
-                                            <Badge
-                                                className={'bg-purple-600'}>Member</Badge> <Badge
-                                            className={'bg-pink-600'}>Admin</Badge>
-                                        </div>
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <div className="font-medium">Colombo</div>
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <div className="font-medium">07123456789</div>
-                                    </TableCell>
-
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <div className="font-medium">8uy4398uihdu3ir</div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium">Liam Johnson</div>
-                                        <div className="text-sm text-muted-foreground">
-                                            liam@example.com
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="font-medium gap-4">
-                                            <Badge
-                                                className={'bg-purple-600'}>Member</Badge> <Badge
-                                            className={'bg-pink-600'}>Admin</Badge>
-                                        </div>
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <div className="font-medium">Colombo</div>
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <div className="font-medium">07123456789</div>
-                                    </TableCell>
-
-                                </TableRow>
-
+                                        </TableRow>
+                                    })
+                                }
                             </TableBody>
                         </Table>
                     </CardContent>

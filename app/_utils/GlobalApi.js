@@ -639,7 +639,32 @@ const allBudgetDetails = async (boardingId) => {
     return await request(MASTER_URL, query);
 }
 
+const allBoardingMembers = async (boardingId) => {
+    const query = `
+    query MyQuery {
+          boarding(where: {id: "${boardingId}"}) {
+            name
+            address
+            id
+            discription
+            availability
+            members {
+              systemUser {
+                clerkId
+                firstName
+                lastName
+                email
+                contactNumber
+                address
+              }
+              adminStatus
+            }
+          }
+        }
 
+    `;
+    return await request(MASTER_URL, query);
+}
 export default {
     getAllSystemUsers,
     createNewSystemUser,
@@ -669,5 +694,6 @@ export default {
     updateMemberPaymentStatus,
     updateBudget,
     getLastBudgetSpends,
-    allBudgetDetails
+    allBudgetDetails,
+    allBoardingMembers
 }
