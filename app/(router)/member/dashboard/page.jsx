@@ -22,8 +22,9 @@ async function page() {
     let openedDate = '';
     let closedDate = '';
 
-    let lastPayments;
+    let allMemberPayments=[];
     let lastBudgetSpends=[];
+
 
     let boardingId;
     let preBudgetId ;
@@ -80,6 +81,12 @@ async function page() {
         console.log(error)
     })
 
+    await GlobalApi.getAllPaymentsByBoardingId(budgetId).then(resp => {
+        allMemberPayments=resp?.budget?.memberPayments
+    }).catch(error => {
+        console.log(error)
+    })
+
 
     return (
         <div>
@@ -87,7 +94,7 @@ async function page() {
             <DashboardContent total={total} balance={balance} lastBudget={lastBudget}
                               openedDate={openedDate} closedDate={closedDate} isAdmin={isAdmin}
                               name={name} memberId={memberId} imageUrl={userData?.imageUrl}
-                              lastBudgetSpends={lastBudgetSpends}
+                              lastBudgetSpends={lastBudgetSpends} allMemberPayments={allMemberPayments}
             />
         </div>
     )
