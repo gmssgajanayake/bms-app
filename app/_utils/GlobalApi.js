@@ -594,6 +594,52 @@ const getLastBudgetSpends = async (budgetId) => {
     `;
     return await request(MASTER_URL, query);
 }
+
+const allBudgetDetails = async (boardingId) => {
+    const query = `
+    query MyQuery {
+          boarding(where: {id: "${boardingId}"}) {
+            budgets(orderBy: createdAt_DESC) {
+              id
+              openedDate
+              total
+              balance
+              boarding {
+                members(where: {adminStatus: true}) {
+                    id
+                    systemUser {
+                        clerkId
+                    }
+                }
+              }
+              closedDate
+              spendForBudgets {
+                forWhat
+                description
+                date
+                price
+              }
+              memberPayments {
+                member {
+                  systemUser {
+                    clerkId
+                    firstName
+                    lastName
+                  }
+                }
+                id
+                price
+                paidDate
+                painStatus
+              }
+            }
+          }
+        }
+    `;
+    return await request(MASTER_URL, query);
+}
+
+
 export default {
     getAllSystemUsers,
     createNewSystemUser,
@@ -622,5 +668,6 @@ export default {
     getAllPaymentsByBoardingId,
     updateMemberPaymentStatus,
     updateBudget,
-    getLastBudgetSpends
+    getLastBudgetSpends,
+    allBudgetDetails
 }
