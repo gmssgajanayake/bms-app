@@ -3,8 +3,11 @@ import React from 'react'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Badge} from "@/components/ui/badge";
+import GlobalApi from "@/app/_utils/GlobalApi";
+import {useRouter} from "next/navigation";
 
-function AllPaymentDetails() {
+function AllPaymentDetails({memberPayments}) {
+  const router = useRouter();
   return (
       <div className=" m-6 grid gap-2 md:gap-4 lg:grid-cols-1 xl:grid-cols-2">
         <Card className=" xl:col-span-2 overflow-x-scroll">
@@ -36,174 +39,40 @@ function AllPaymentDetails() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">8uy4398uihdu3ir</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">jf9384fj349f3rv</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">LKR 2900.00</div>
-                  </TableCell>
+                {
+                  memberPayments?.map((payment)=>{
+                    return (
+                        <TableRow>
+                          <TableCell>
+                            <div className="font-medium">{payment?.id}</div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="font-medium">{payment?.budget?.id}</div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="font-medium">LKR {parseFloat(payment?.price).toFixed(2)}</div>
+                          </TableCell>
 
-                  <TableCell>
-                    <div className="font-medium">23/02/2024</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium gap-4">
-                      <Badge
-                          className={'bg-green-200 text-black'}>Paid</Badge>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">8uy4398uihdu3ir</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">jf9384fj349f3rv</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">LKR 2900.00</div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div className="font-medium">23/02/2024</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium gap-4">
-                      <Badge
-                          className={'bg-green-200 text-black'}>Paid</Badge>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">8uy4398uihdu3ir</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">jf9384fj349f3rv</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">LKR 2900.00</div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div className="font-medium">23/02/2024</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium gap-4">
-                      <Badge
-                          className={'bg-amber-100 text-black'}>Pending</Badge>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">8uy4398uihdu3ir</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">jf9384fj349f3rv</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">LKR 2900.00</div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div className="font-medium">23/02/2024</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium gap-4">
-                      <Badge
-                          className={'bg-red-300 text-black'}>Unpaid</Badge>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">8uy4398uihdu3ir</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">jf9384fj349f3rv</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">LKR 2900.00</div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div className="font-medium">23/02/2024</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium gap-4">
-                      <Badge
-                          className={'bg-green-200 text-black'}>Paid</Badge>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">8uy4398uihdu3ir</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">jf9384fj349f3rv</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">LKR 2900.00</div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div className="font-medium">23/02/2024</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium gap-4">
-                      <Badge
-                          className={'bg-amber-100 text-black'}>Pending</Badge>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                <TableCell>
-                  <div className="font-medium">8uy4398uihdu3ir</div>
-                </TableCell>
-                <TableCell>
-                  <div className="font-medium">jf9384fj349f3rv</div>
-                </TableCell>
-                <TableCell>
-                  <div className="font-medium">LKR 2900.00</div>
-                </TableCell>
-
-                <TableCell>
-                  <div className="font-medium">23/02/2024</div>
-                </TableCell>
-                <TableCell>
-                  <div className="font-medium gap-4">
-                    <Badge
-                        className={'bg-amber-100 text-black'}>Pending</Badge>
-                  </div>
-                </TableCell>
-              </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">8uy4398uihdu3ir</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">jf9384fj349f3rv</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">LKR 2900.00</div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div className="font-medium">23/02/2024</div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium gap-4">
-                      <Badge
-                          className={'bg-green-200 text-black'}>Paid</Badge>
-                    </div>
-                  </TableCell>
-                </TableRow>
+                          <TableCell>
+                            <div className="font-medium">{payment?.paidDate}</div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="font-medium gap-4">{
+                              payment?.painStatus === 'Pending' ?
+                              <Badge
+                                  className={'bg-amber-200 text-black'}>Pending</Badge>
+                              :  payment?.painStatus === 'Paid' ?
+                              <Badge
+                                  className={'bg-green-200 text-black'}>Paid</Badge>:
+                              <Badge
+                                  className={'bg-red-200 text-black'}>Unpaid</Badge>
+                            }
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                    )
+                  })
+                }
               </TableBody>
             </Table>
           </CardContent>

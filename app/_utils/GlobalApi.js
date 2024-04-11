@@ -450,7 +450,63 @@ const createBudgetSpend = async (reason, price,date,budgetId,desc,balance) => {
       }
     }
     `;
-    console.log(query)
+    return await request(MASTER_URL, query);
+}
+
+const makeMemberPayment = async (price,budgetId,memberId) => {
+    const query = `
+    mutation MyMutation {
+          createMemberPayment(
+            data: {price: ${price}, paidDate: "${formattedToday}", budget: {connect: {id: "${budgetId}"}}, member: {connect: {id: "${memberId}"}}, painStatus: Pending}
+          ) {
+            id
+          }
+          publishManyBudgets(to: PUBLISHED) {
+            count
+          }
+          publishManyMembers(to: PUBLISHED) {
+            count
+          }
+          publishManyMemberPayments(to: PUBLISHED) {
+            count
+          }
+        }
+    `;
+    return await request(MASTER_URL, query);
+}
+
+const getMemberIdByClerkId = async (clerkId) => {
+    const query = `
+    query MyQuery {
+          systemUser(where: {clerkId: "${clerkId}"}) {
+            member {
+              id
+            }
+          }
+        }
+    `;
+    return await request(MASTER_URL, query);
+}
+
+const getMemberPaymentByMemberId = async (memberId) => {
+    const query = `
+    query MyQuery {
+          memberPayments(
+            where: {member: {id: "${memberId}"}}
+            orderBy: createdAt_DESC
+            ) {
+            paidDate
+            painStatus
+            price
+            createdAt
+            id
+            budget {
+              id
+            }
+          }
+        }
+
+    `;
     return await request(MASTER_URL, query);
 }
 
@@ -475,5 +531,8 @@ export default {
     getAllBudgets,
     createNewBudget,
     closeBudget,
-    createBudgetSpend
+    createBudgetSpend,
+    makeMemberPayment,
+    getMemberIdByClerkId,
+    getMemberPaymentByMemberId
 }
