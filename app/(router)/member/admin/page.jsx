@@ -27,6 +27,7 @@ async function page() {
     let balance = 0;
     let total = 0;
     let statusOfBudget = false;
+    let allMemberPayments;
 
 
     await GlobalApi.findSystemUserByClerkId(userData?.id).then(resp => {
@@ -68,6 +69,12 @@ async function page() {
         console.log(error)
     })
 
+    await GlobalApi.getAllPaymentsByBoardingId(budgetId).then(resp => {
+        allMemberPayments=resp?.budget?.memberPayments
+    }).catch(error => {
+        console.log(error)
+    })
+
     return (
         <div>
             <MemberHeader isMember={isMember} isAdmin={isAdmin} fileName={'admin'}/>
@@ -92,7 +99,7 @@ async function page() {
                     </div>
                 </div>
             </div>
-            <ManageMemberPayments/>
+            <ManageMemberPayments allMemberPayments={allMemberPayments} budgetId={budgetId} total={total} balance={balance}/>
         </div>
     )
 }

@@ -510,6 +510,78 @@ const getMemberPaymentByMemberId = async (memberId) => {
     return await request(MASTER_URL, query);
 }
 
+
+const getAllPaymentsByBoardingId = async (boardingId) => {
+    const query = `
+    query MyQuery {
+          budget(where: {id: "${boardingId}"}) {
+            memberPayments {
+              id
+              price
+              paidDate
+              painStatus
+              member {
+                id
+                systemUser {
+                  firstName
+                  lastName
+                  clerkId
+                }
+              }
+            }
+          }
+        }
+    `;
+    return await request(MASTER_URL, query);
+}
+
+const updateMemberPaymentStatus = async (paymentId, status) => {
+    const query = `
+    mutation MyMutation {
+      updateMemberPayment(
+        data: {painStatus: ${status}}
+        where: {id: "${paymentId}"}
+      ) {
+        id
+        price
+      }
+      publishManyMemberPayments(to: PUBLISHED) {
+        count
+      }
+      publishManyBudgets(to: PUBLISHED) {
+        count
+       }
+      publishManyMembers(to: PUBLISHED) {
+        count
+      }
+    }
+    `;
+    return await request(MASTER_URL, query);
+}
+
+
+const updateBudget = async (budgetId, total, balance) => {
+    const query = `
+    mutation MyMutation {
+      updateBudget(data: {balance: ${balance}, total:${total}}, where: {id: "${budgetId}"}) {
+        id
+      }
+      publishManyBudgets(to: PUBLISHED) {
+        count
+      }
+      publishManyBudgets(to: PUBLISHED) {
+        count
+    }
+    publishManyMembers(to: PUBLISHED) {
+        count
+        }
+    }
+
+    `;
+    console.log(query)
+    return await request(MASTER_URL, query);
+}
+
 export default {
     getAllSystemUsers,
     createNewSystemUser,
@@ -534,5 +606,8 @@ export default {
     createBudgetSpend,
     makeMemberPayment,
     getMemberIdByClerkId,
-    getMemberPaymentByMemberId
+    getMemberPaymentByMemberId,
+    getAllPaymentsByBoardingId,
+    updateMemberPaymentStatus,
+    updateBudget
 }

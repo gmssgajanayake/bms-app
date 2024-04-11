@@ -27,7 +27,7 @@ const formSchema = z.object({
     price: z.string().min(1, {
         message: "Enter valid price",
     }).refine((value) => parseFloat(value) > 0 && parseFloat(value) <= budgetBalance, {
-        message: "Price must be greater than 0 and less than or equal to " + budgetBalance,
+        message: "Invalid price.",
     }),
 })
 
