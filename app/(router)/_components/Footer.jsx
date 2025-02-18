@@ -109,7 +109,7 @@ function Footer() {
                         </div>
                         <div>
                             <p className="text-gray-400 text-[14px] tracking-wide">
-                                Copyright <i className="ri-copyright-line"></i> 2024 developed by Sakuja Shamal
+                                Copyright <i className="ri-copyright-line"></i> 2025 developed by Sakuja Shamal
                                 Gajanayake - All
                                 right reserved.
                             </p>
