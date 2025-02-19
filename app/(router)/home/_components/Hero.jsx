@@ -71,7 +71,7 @@ function Hero() {
                         className="md:basis-1/5 flex text-center justify-between mt-10 flex-wrap gap-3 md:mt-0 md:flex-col md:justify-end md:text-end">
                         <div className="mb-10">
                             <h2 className="text-smallTextColor font-[700] text-[32px]">
-                                <CountUp start={0} end={580} duration={2} suffix={"+"}/>
+                                <CountUp start={0} end={50} duration={2} suffix={"+"}/>
                             </h2>
                             <h4 className="text-headingColor font-[600] text-[18px]">
                                 System users so far
@@ -79,7 +79,7 @@ function Hero() {
                         </div>
                         <div className="mb-10">
                             <h2 className="text-smallTextColor font-[700] text-[32px]">
-                                <CountUp start={0} end={98} duration={2} suffix={"%"}/>
+                                <CountUp start={0} end={85} duration={2} suffix={"%"}/>
                             </h2>
                             <h4 className="text-headingColor font-[600] text-[18px]">
                                 Success Rate
@@ -87,7 +87,7 @@ function Hero() {
                         </div>
                         <div className="mb-10">
                             <h2 className="text-smallTextColor font-[700] text-[32px]">
-                                <CountUp start={0} end={180} duration={2} suffix={"+"}/>
+                                <CountUp start={0} end={30} duration={2} suffix={"+"}/>
                             </h2>
                             <h4 className="text-headingColor font-[600] text-[18px]">
                                 Current Members
@@ -95,7 +95,7 @@ function Hero() {
                         </div>
                         <div className="mb-10">
                             <h2 className="text-smallTextColor font-[700] text-[32px]">
-                                <CountUp start={0} end={20} duration={2} suffix={"+"}/>
+                                <CountUp start={0} end={5} duration={2} suffix={"+"}/>
                             </h2>
                             <h4 className="text-headingColor font-[600] text-[18px]">
                                 Registered Boarding
